@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scripts.validate_repo import main, validate
+from scripts.validate_repo import REQUIRED_COMPUTE_BOUND_EVIDENCE, main, validate
 
 
 def test_validate_repo_main_reports_success_for_checked_in_repo():
@@ -31,11 +31,29 @@ def test_validate_repo_rejects_external_weight_framing_in_public_files(tmp_path)
     assert any("external-weight reference" in error for error in errors)
 
 
+def test_compute_bound_doc_contains_required_public_evidence():
+    text = (Path(__file__).resolve().parents[1] / "docs" / "compute_bound_evidence.md").read_text(
+        encoding="utf-8"
+    )
+
+    for required in REQUIRED_COMPUTE_BOUND_EVIDENCE:
+        assert required in text
+
+
+def test_validate_repo_rejects_missing_compute_bound_evidence_text(tmp_path):
+    write_minimal_repo(tmp_path)
+
+    errors = validate(tmp_path)
+
+    assert any("missing compute-bound evidence text" in error for error in errors)
+
+
 def write_minimal_repo(root: Path) -> None:
     (root / "docs").mkdir()
     (root / "configs").mkdir()
     (root / "data").mkdir()
     (root / "README.md").write_text("# SpikeBudget\n", encoding="utf-8")
+    (root / "docs" / "compute_bound_evidence.md").write_text("# Compute-Bound Evidence\n", encoding="utf-8")
     (root / "docs" / "technology_milestones.md").write_text("# Technology Milestone Ledger\n", encoding="utf-8")
     (root / "docs" / "reproduce_3090.md").write_text("# Runbook\n", encoding="utf-8")
     (root / "docs" / "limitations.md").write_text("# Limits\n", encoding="utf-8")

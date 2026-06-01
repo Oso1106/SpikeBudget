@@ -56,6 +56,7 @@ external release item.
 | Evaluation | Use the technology-lane locked metric and validation window. | Metric name, dataset, sequence length, eval iterations, seed/window ids. |
 | Decision rule | Apply the published continuation or rejection rule before making claims. | Small summary table with pass/fail and reason. |
 | Artifact pruning | Keep summaries, result tables, and log snippets in git; keep checkpoints and datasets outside git. | Public artifact bundle with no large parquet files or checkpoints. |
+| Best scratch checkpoint handoff | Preserve the best long-horizon dense scratch checkpoint outside git and record its release location and checksum. | The public reference is `external-artifact:long_horizon_dense_scratch_lr3e4_steps6000_best_bpb_checkpoint`; metadata lives in `artifacts/external_scratch_summaries/best_scratch_checkpoint.tsv`. |
 
 ## Command Template
 
@@ -86,6 +87,8 @@ external release item.
 | full saliency rule shootout / true scratch saliency shootout | Compare saliency rules against matched no-saliency controls. | Existing evidence closes saliency scale-up; a new run needs a predeclared continuation rule. |
 | dense low-LR scratch screen | Use two seeds and compare against same-seed 300-step dense baselines. | dense low-LR scratch screen is screen-only because no row passed >=5% and >=2x-noise. |
 | dense low-LR scratch stability and long-horizon verification | Longer low-LR dense no-saliency training is the verified positive scratch direction. | Keep the claim to scratch BPB horizon, not broader model-quality comparisons. |
+| task-level NVIDIA L4 benchmark | Report the matched optimized path as 128.75x memory-cheaper and 6.78x faster on NVIDIA L4. | NVIDIA L4 is a separate datacenter GPU model name, not NVIDIA L40. |
+| architecture labels such as D768/L4 | Interpret D768 as d_model 768 and L4 as four model layers. | This L4 suffix is an architecture abbreviation, not a GPU model. |
 
 ## External Artifact References
 

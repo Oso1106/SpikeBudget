@@ -1,3 +1,4 @@
+import csv
 from pathlib import Path
 
 import pytest
@@ -23,6 +24,7 @@ def test_evidence_ledger_contains_key_decision_records():
         "dense_low_lr_scratch_screen",
         "dense_low_lr_scratch_stability",
         "long_horizon_dense_scratch_verification",
+        "best_scratch_checkpoint_reference",
         "decision",
     } <= record_ids
 
@@ -41,6 +43,22 @@ def test_included_artifacts_exist():
         if record["artifact_status"] == "included":
             for artifact in record["artifacts"]:
                 assert (REPO_ROOT / artifact).exists(), f"{record['id']} missing {artifact}"
+
+
+def test_best_scratch_checkpoint_metadata_is_scratch_only_reference():
+    metadata_path = REPO_ROOT / "artifacts" / "external_scratch_summaries" / "best_scratch_checkpoint.tsv"
+
+    with metadata_path.open("r", encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle, delimiter="\t"))
+
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["artifact_reference"] == "external-artifact:long_horizon_dense_scratch_lr3e4_steps6000_best_bpb_checkpoint"
+    assert row["training_origin"] == "random initialization train-from-scratch"
+    assert row["selection_metric"] == "mean final BPB"
+    assert row["reported_value"] == "1.804832"
+    assert row["release_location"] == "pending_external_artifact_bundle"
+    assert row["sha256"] == "pending_external_artifact_bundle"
 
 
 def test_evidence_ledger_validation_rejects_missing_status():
