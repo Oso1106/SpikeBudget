@@ -1,0 +1,2 @@
+artifact_reference	technology_lane	training_origin	selection_metric	reported_value	run_profile	release_location	sha256	public_policy
+external-artifact:long_horizon_dense_scratch_lr3e4_steps6000_best_bpb_checkpoint	long-horizon dense scratch verification	random initialization train-from-scratch	mean final BPB	1.804832	LR 3e-4 for 6000 scratch steps	pending_external_artifact_bundle	pending_external_artifact_bundle	generated checkpoint is outside git; publish checksum and release location with any external artifact bundle

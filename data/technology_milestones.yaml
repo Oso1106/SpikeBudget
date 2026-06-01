@@ -22,8 +22,8 @@
 - id: task_level_temporal_cuda_benchmark
   title: Task-Level Temporal Training
   status: positive
-  result: Matched optimized path was 128.75x memory-cheaper and 6.78x faster on the L4 task.
-  interpretation: This is the core task-level benchmark tying optimized work to the materialized reference.
+  result: Matched optimized path was 128.75x memory-cheaper and 6.78x faster on the NVIDIA L4 task.
+  interpretation: NVIDIA L4 is the datacenter GPU model used for this task-level benchmark; it is not NVIDIA L40.
   artifact_status: summary_only
   artifacts: []
 - id: real_cuda_timing_correction
@@ -50,7 +50,7 @@
 - id: capacity_lm_scaling_bridge
   title: Capacity, LM, and Spike-Native Scaling
   status: evidence
-  result: L4 and RTX 3090 experiments show large SNN-transformer training from scratch is feasible, but quality is hard.
+  result: NVIDIA L4 and RTX 3090 experiments show large SNN-transformer training from scratch is feasible, but quality is hard.
   interpretation: This branch bridges systems roofline evidence to language-model quality experiments.
   artifact_status: summary_only
   artifacts: []
@@ -151,7 +151,7 @@
   title: Scratch Architecture Search
   status: negative
   result: Best tested candidate D768/L4 has mean BPB 2.187050, worse than the optimized baseline.
-  interpretation: Tested architecture changes do not create a verified positive theory.
+  interpretation: In architecture labels, L4 means four layers, not the NVIDIA L4 GPU.
   artifact_status: external_missing
   artifacts: []
 - id: long_horizon_dense_scratch_verification
@@ -162,6 +162,15 @@
   artifact_status: included
   artifacts:
     - artifacts/external_scratch_summaries/key_scratch_summaries.tsv
+    - artifacts/external_scratch_summaries/README.md
+- id: best_scratch_checkpoint_reference
+  title: Best Trained-From-Scratch Checkpoint Reference
+  status: evidence
+  result: external-artifact:long_horizon_dense_scratch_lr3e4_steps6000_best_bpb_checkpoint is selected by mean final BPB 1.804832.
+  interpretation: Summary metadata is included; checkpoint bytes are generated scratch output kept outside git, and release bundles should attach storage location and checksum to this reference.
+  artifact_status: included
+  artifacts:
+    - artifacts/external_scratch_summaries/best_scratch_checkpoint.tsv
     - artifacts/external_scratch_summaries/README.md
 - id: eval_nsight_counter_parse_check
   title: Eval Nsight Counters Inconclusive
