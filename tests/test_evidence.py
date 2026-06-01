@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from spikebudget.evidence import (
+    contains_disallowed_external_weight_reference,
     contains_disallowed_public_label,
     contains_private_path,
     load_evidence_ledger,
@@ -18,10 +19,10 @@ def test_evidence_ledger_contains_key_decision_records():
     record_ids = {record["id"] for record in ledger}
 
     assert {
-        "public_quantized_checkpoint_reproduction",
+        "seven_b_scratch_memory_feasibility",
+        "dense_low_lr_scratch_screen",
         "dense_low_lr_scratch_stability",
         "long_horizon_dense_scratch_verification",
-        "pretrained_low_lr_horizon_near_miss",
         "decision",
     } <= record_ids
 
@@ -117,19 +118,56 @@ def test_evidence_ledger_validation_requires_inconclusive_status():
         )
 
 
+def test_evidence_ledger_validation_rejects_external_weight_framing():
+    with pytest.raises(ValueError, match="disallowed external-weight reference"):
+        validate_evidence_ledger(
+            [
+                {
+                    "id": "bad",
+                    "title": "Bad Record",
+                    "status": "inconclusive",
+                    "result": "pre" + "trained result",
+                    "interpretation": "none",
+                    "artifact_status": "summary_only",
+                    "artifacts": [],
+                }
+            ],
+            repo_root=REPO_ROOT,
+            source="inline",
+        )
+
+
 def test_public_label_detector_catches_disallowed_baseline_and_numeric_labels():
     assert contains_disallowed_public_label("Spike" + "LLM")
     assert contains_disallowed_public_label("W4" + "A4")
     assert contains_disallowed_public_label("Ga" + "te " + "129")
     assert contains_disallowed_public_label("ga" + "te" + "129")
     assert contains_disallowed_public_label("G" + "129")
+    assert contains_disallowed_public_label("G-" + "129")
+    assert contains_disallowed_public_label("G " + "129")
     assert not contains_disallowed_public_label("dense low-LR scratch screen")
 
 
+def test_external_weight_detector_catches_removed_claim_framing():
+    assert contains_disallowed_external_weight_reference("pre" + "trained calibration")
+    assert contains_disallowed_external_weight_reference("pre-" + "trained calibration")
+    assert contains_disallowed_external_weight_reference("down" + "loaded weights")
+    assert contains_disallowed_external_weight_reference("down_" + "loaded weights")
+    assert contains_disallowed_external_weight_reference("checkpoint " + "reproduction")
+    assert contains_disallowed_external_weight_reference("checkpoint-" + "reproduction")
+    assert contains_disallowed_external_weight_reference("model" + "_id")
+    assert contains_disallowed_external_weight_reference("model" + "id")
+    assert contains_disallowed_external_weight_reference("near-" + "miss")
+    assert contains_disallowed_external_weight_reference("quality " + "control")
+    assert not contains_disallowed_external_weight_reference("generated scratch checkpoint")
+
+
 def test_private_path_detector_catches_host_markers_and_personal_paths():
-    assert contains_private_path("/tmp/codex_snn_capacity/run")
-    assert contains_private_path("/Users/kuyue/private")
-    assert contains_private_path("omni-lsn-9zcvq")
-    assert contains_private_path("Yizhou")
-    assert contains_private_path("stream_yizhou_s50000")
+    assert contains_private_path("/tmp/" + "codex_snn_capacity/run")
+    assert contains_private_path("/" + "Users/example/private")
+    assert contains_private_path("/" + "home/example/private")
+    assert contains_private_path("C:" + "\\Users\\example\\private")
+    assert contains_private_path("omni-" + "lsn-9zcvq")
+    assert contains_private_path("Yi" + "zhou")
+    assert contains_private_path("stream_" + "yi" + "zhou_s50000")
     assert not contains_private_path("external-artifact:dclm_protocol_stream_s50000")

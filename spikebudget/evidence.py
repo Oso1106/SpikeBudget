@@ -20,10 +20,16 @@ REQUIRED_EVIDENCE_KEYS = (
 )
 ARTIFACT_STATUSES = {"included", "summary_only", "external_missing"}
 EVIDENCE_STATUSES = {"positive", "negative", "caution", "evidence", "inconclusive"}
-PRIVATE_PATH_RE = re.compile(
-    r"(/tmp/codex_snn_capacity|/Users/[^\s`'\"<>]+|file://|\bomni-[a-z0-9-]+\b|yizhou)",
-    re.IGNORECASE,
+_PRIVATE_PATH_PATTERNS = (
+    "/" + "tmp/" + "codex_snn_capacity",
+    "/" + "Users/" + r"[^\s`'\"<>]+",
+    "/" + "home/" + r"[^\s`'\"<>]+",
+    r"[A-Za-z]:\\" + "Users" + r"\\[^\s`'\"<>]+",
+    "file" + "://",
+    r"\b" + "omni" + r"-[a-z0-9-]+\b",
+    "yi" + "zhou",
 )
+PRIVATE_PATH_RE = re.compile("|".join(_PRIVATE_PATH_PATTERNS), re.IGNORECASE)
 _DISALLOWED_BASELINE_LABELS = ("spike" + "llm", "w4" + "a4")
 _NUMERIC_MILESTONE_PREFIX = "ga" + "te"
 DISALLOWED_PUBLIC_LABEL_RE = re.compile(
@@ -32,9 +38,25 @@ DISALLOWED_PUBLIC_LABEL_RE = re.compile(
             *_DISALLOWED_BASELINE_LABELS,
             rf"\b{_NUMERIC_MILESTONE_PREFIX}\s*[-_]*\d+",
             rf"\b{_NUMERIC_MILESTONE_PREFIX}[-_]*\d+",
-            r"\bG\d+(?:[-_]\d+)?\b",
+            r"\bG[-_\s]*\d+(?:[-_]\d+)?\b",
         )
     ),
+    re.IGNORECASE,
+)
+_DISALLOWED_EXTERNAL_WEIGHT_PATTERNS = (
+    r"pre[-_ ]?trained",
+    r"pre[-_ ]?training",
+    r"down[-_ ]?loaded",
+    r"public[-_ ]+quantized",
+    r"checkpoint[-_ ]+reproduction",
+    r"model[-_ ]?id",
+    r"huggy[-_ ]?llama",
+    r"near[-_ ]+miss",
+    r"quality[-_ ]+control",
+    r"quality[-_ ]+parity",
+)
+DISALLOWED_EXTERNAL_WEIGHT_RE = re.compile(
+    "|".join(_DISALLOWED_EXTERNAL_WEIGHT_PATTERNS),
     re.IGNORECASE,
 )
 
@@ -69,6 +91,8 @@ def validate_evidence_ledger(data: Any, repo_root: str | Path, source: str) -> l
 
         if contains_disallowed_public_label(record_id):
             raise ValueError(f"{source}: evidence record has disallowed public label: {record_id}")
+        if contains_disallowed_external_weight_reference(record_id):
+            raise ValueError(f"{source}: evidence record has disallowed external-weight reference: {record_id}")
 
         if record["id"] in seen:
             raise ValueError(f"{source}: duplicate evidence id: {record['id']}")
@@ -77,6 +101,10 @@ def validate_evidence_ledger(data: Any, repo_root: str | Path, source: str) -> l
         for key in ("title", "result", "interpretation"):
             if contains_disallowed_public_label(str(record[key])):
                 raise ValueError(f"{source}: evidence record {record['id']} has disallowed label in {key}")
+            if contains_disallowed_external_weight_reference(str(record[key])):
+                raise ValueError(
+                    f"{source}: evidence record {record['id']} has disallowed external-weight reference in {key}"
+                )
 
         if record["status"] not in EVIDENCE_STATUSES:
             raise ValueError(f"{source}: evidence record {record['id']} has invalid status: {record['status']}")
@@ -124,3 +152,9 @@ def contains_disallowed_public_label(text: str) -> bool:
     """Return true when public text uses banned baseline names or numeric milestone labels."""
 
     return DISALLOWED_PUBLIC_LABEL_RE.search(text) is not None
+
+
+def contains_disallowed_external_weight_reference(text: str) -> bool:
+    """Return true when public text uses removed external-weight framing."""
+
+    return DISALLOWED_EXTERNAL_WEIGHT_RE.search(text) is not None

@@ -69,8 +69,8 @@ def validate_repro_config(data: Any, source: str) -> dict[str, Any]:
     require_positive_number(data["run"], "eval_iters", "run.eval_iters", source, required=False)
     require_positive_number(data["run"], "eval_every", "run.eval_every", source, required=False)
 
-    if data["claim_scope"].get("quality_parity") is not False:
-        raise ValueError(f"{source}: claim_scope.quality_parity must be false")
+    if data["claim_scope"].get("scratch_only") is not True:
+        raise ValueError(f"{source}: claim_scope.scratch_only must be true")
 
     if data["claim_scope"].get("eval_energy_win") is not False:
         raise ValueError(f"{source}: claim_scope.eval_energy_win must be false")

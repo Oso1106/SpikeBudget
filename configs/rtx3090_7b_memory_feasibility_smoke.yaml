@@ -26,6 +26,6 @@ run:
   eval_every: 5
   save_best_checkpoint: false
 claim_scope:
-  quality_parity: false
+  scratch_only: true
   eval_energy_win: false
   purpose: smoke_test_runner_and_memory_path

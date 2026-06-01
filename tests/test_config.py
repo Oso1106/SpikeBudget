@@ -14,7 +14,7 @@ def test_checked_in_configs_have_required_public_fields():
         assert config["name"]
         assert config["evidence_lane"]
         assert config["hardware"]["gpu_class"]
-        assert config["claim_scope"]["quality_parity"] is False
+        assert config["claim_scope"]["scratch_only"] is True
 
 
 def test_config_validation_reports_missing_top_level_key():
@@ -27,14 +27,14 @@ def test_config_validation_reports_missing_top_level_key():
                 "model": {},
                 "data": {},
                 "run": {},
-                "claim_scope": {"quality_parity": False},
+                "claim_scope": {"scratch_only": True},
             },
             source="inline",
         )
 
 
-def test_config_validation_rejects_quality_parity_claim():
-    with pytest.raises(ValueError, match="quality_parity must be false"):
+def test_config_validation_rejects_non_scratch_scope():
+    with pytest.raises(ValueError, match="scratch_only must be true"):
         validate_repro_config(
             {
                 "name": "bad",
@@ -44,7 +44,7 @@ def test_config_validation_rejects_quality_parity_claim():
                 "optimizer": {"name": "adamw"},
                 "data": {"source": "wikitext2"},
                 "run": {"max_steps": 1},
-                "claim_scope": {"quality_parity": True},
+                "claim_scope": {"scratch_only": False},
             },
             source="inline",
         )
@@ -61,7 +61,7 @@ def test_config_validation_rejects_empty_name():
                 "optimizer": {"name": "adamw"},
                 "data": {"source": "wikitext2"},
                 "run": {"max_steps": 1},
-                "claim_scope": {"quality_parity": False, "eval_energy_win": False},
+                "claim_scope": {"scratch_only": True, "eval_energy_win": False},
             },
             source="inline",
         )
@@ -78,7 +78,7 @@ def test_config_validation_rejects_nonpositive_numeric_fields():
                 "optimizer": {"name": "adamw", "lr": 0.001},
                 "data": {"source": "wikitext2"},
                 "run": {"max_steps": 1},
-                "claim_scope": {"quality_parity": False, "eval_energy_win": False},
+                "claim_scope": {"scratch_only": True, "eval_energy_win": False},
             },
             source="inline",
         )
@@ -93,7 +93,7 @@ def test_config_validation_rejects_nonpositive_numeric_fields():
                 "optimizer": {"name": "adamw", "lr": 0},
                 "data": {"source": "wikitext2"},
                 "run": {"max_steps": 1},
-                "claim_scope": {"quality_parity": False, "eval_energy_win": False},
+                "claim_scope": {"scratch_only": True, "eval_energy_win": False},
             },
             source="inline",
         )
@@ -108,7 +108,7 @@ def test_config_validation_rejects_nonpositive_numeric_fields():
                 "optimizer": {"name": "adamw", "lr": 0.001},
                 "data": {"source": "wikitext2"},
                 "run": {"max_steps": [1, 0]},
-                "claim_scope": {"quality_parity": False, "eval_energy_win": False},
+                "claim_scope": {"scratch_only": True, "eval_energy_win": False},
             },
             source="inline",
         )

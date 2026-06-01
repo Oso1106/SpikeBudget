@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Turn the minimal SpikeBudget repo into a public, reproducible scaffold for the technology trail behind 7B-class SNN pretraining on RTX 3090-class hardware.
+**Goal:** Turn the minimal SpikeBudget repo into a public, reproducible scaffold for the technology trail behind 7B-class SNN scratch training on RTX 3090-class hardware.
 
 **Architecture:** Keep heavyweight GPU training as documented recipes and make CI validate the lightweight public artifacts. Put deterministic helper code in a small Python package, and keep the technology milestone ledger in checked-in YAML so readers can audit status without running CUDA.
 
@@ -57,7 +57,7 @@ Expected: all tests pass.
 
 - [ ] **Step 1: Write public docs**
 
-Docs must use tables for results and must not claim quality parity or eval energy wins.
+Docs must use tables for results and must not claim broader model-quality comparison or eval energy wins.
 
 - [ ] **Step 2: Add configs**
 
