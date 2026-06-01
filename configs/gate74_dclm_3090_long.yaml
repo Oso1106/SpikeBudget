@@ -1,0 +1,32 @@
+name: gate74_dclm_3090_long
+gate: Gate74
+hardware:
+  gpu_class: RTX 3090
+  min_vram_gb: 24
+  cuda_required: true
+model:
+  family: snn_transformer
+  parameters: 6713000000
+  timesteps: 4
+  sequence_length: 2048
+  precision: bf16
+optimizer:
+  name: rsvd_galore_hook
+  rank: 256
+  lr: 0.0003
+data:
+  source: mlfoundations/dclm-baseline-1.0-parquet
+  split: train
+  tokenizer: sentencepiece_32k
+  commit_policy: do_not_commit_datasets_or_checkpoints
+run:
+  profile: long_3090
+  max_steps: 100000
+  batch: 1
+  eval_iters: 16
+  eval_every: 1000
+  save_best_checkpoint: true
+claim_scope:
+  quality_parity: false
+  eval_energy_win: false
+  purpose: long_horizon_pretraining_reproduction

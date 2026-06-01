@@ -1,0 +1,31 @@
+name: gate74_7b_3090_smoke
+gate: Gate74
+hardware:
+  gpu_class: RTX 3090
+  min_vram_gb: 24
+  cuda_required: true
+model:
+  family: snn_transformer
+  parameters: 6713000000
+  timesteps: 4
+  sequence_length: 2048
+  precision: bf16
+optimizer:
+  name: rsvd_galore_hook
+  rank: 256
+  lr: 0.0003
+data:
+  source: wikitext2_smoke_or_public_dclm_slice
+  tokenizer: sentencepiece_32k
+  commit_policy: do_not_commit_datasets
+run:
+  profile: smoke
+  max_steps: 20
+  batch: 1
+  eval_iters: 1
+  eval_every: 5
+  save_best_checkpoint: false
+claim_scope:
+  quality_parity: false
+  eval_energy_win: false
+  purpose: smoke_test_runner_and_memory_path
