@@ -17,6 +17,7 @@ from spikebudget.evidence import (
 
 REQUIRED_DOCS = (
     "README.md",
+    "docs/compute_bound_evidence.md",
     "docs/technology_milestones.md",
     "docs/reproduce_3090.md",
     "docs/limitations.md",
@@ -40,6 +41,15 @@ PUBLIC_TEXT_GLOBS = (
     "artifacts/**/*.json",
     "artifacts/**/*.log",
 )
+REQUIRED_COMPUTE_BOUND_EVIDENCE = (
+    "0.098x",
+    "34.14x",
+    "128.75x",
+    "6.78x",
+    "70.7% SM / 0.08% DRAM",
+    "22.7% SM / 51.3% DRAM",
+    "real CUDA kernels and cudaEvent timing",
+)
 
 
 def repo_root() -> Path:
@@ -55,6 +65,13 @@ def validate(root: Path) -> list[str]:
             errors.append(f"missing required doc: {doc}")
         elif path.stat().st_size == 0:
             errors.append(f"empty required doc: {doc}")
+
+    compute_bound_doc = root / "docs" / "compute_bound_evidence.md"
+    if compute_bound_doc.exists():
+        text = compute_bound_doc.read_text(encoding="utf-8")
+        for required_text in REQUIRED_COMPUTE_BOUND_EVIDENCE:
+            if required_text not in text:
+                errors.append(f"missing compute-bound evidence text: {required_text}")
 
     config_paths = sorted((root / "configs").glob("*.yaml"))
     if not config_paths:

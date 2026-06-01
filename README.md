@@ -45,6 +45,7 @@ training runner and generated checkpoints are not included in this repository.
 | Tiled scalar reduction vs CUTLASS GEMM gradient | Positive | Tiled scalar reduction was 0.098x while CUTLASS GEMM gradient was 34.14x. | Kernel shape, not spiking alone, drives the measured GPU regime. |
 | Task-level temporal training CUDA benchmark | Positive | Matched optimized path was 128.75x memory-cheaper and 6.78x faster on the NVIDIA L4 task. | NVIDIA L4 is a distinct datacenter GPU model used for this task-level benchmark; it is not NVIDIA L40. |
 | Real CUDA timing correction | Caution | Synthetic reviewer-facing timing was replaced with real CUDA kernels and cudaEvent timing. | The correction is part of the record and must remain visible. |
+| CUDA hardware-counter repeatability | Positive | Optimized counters reported 70.7% SM / 0.08% DRAM while the materialized reference reported 22.7% SM / 51.3% DRAM. | This is the clearest counter evidence for compute-side execution in the measured optimized path. |
 | DCLM benchmark-protocol diagnostic | Caution | DCLM PPL 113.806 and WT2 continuity PPL 207.136 at step 68100; micro-scores stayed near chance. | Report as diagnostic micro-screens, not official benchmark scores. |
 | True scratch saliency shootout | Negative | Fixed timestep reached 3.3490 BPB; learned saliency rows were worse than no-saliency. | Scratch learned-saliency scale-up stays closed. |
 | Signed subset Taylor saliency guard | Negative | Signed subset Taylor diagnostic gave Spearman -0.2571 and top-k overlap 0.0. | Signed normalization-aware saliency fails oracle alignment. |
@@ -58,6 +59,7 @@ training runner and generated checkpoints are not included in this repository.
 | Path | Contents | Evidence policy |
 | --- | --- | --- |
 | [docs/technology_milestones.md](docs/technology_milestones.md) | Human-readable full technology milestone table through the current scratch-focused decision record. | Includes positive, caution, negative, and inconclusive evidence. |
+| [docs/compute_bound_evidence.md](docs/compute_bound_evidence.md) | Explanation of what changed in the CUDA path and why the evidence supports compute-side GPU execution. | Keeps the compute-bound reading tied to measured kernels and task-level evidence. |
 | [docs/reproduce_3090.md](docs/reproduce_3090.md) | Public 3090-class scratch setup and runbook. | Uses public env vars and avoids private host assumptions. |
 | [docs/limitations.md](docs/limitations.md) | Caveat table for public claims. | Keeps real CUDA timing correction, scratch saliency, counter, and energy caveats explicit. |
 | [data/technology_milestones.yaml](data/technology_milestones.yaml) | Machine-readable technology milestone ledger. | Each entry has id, title, status, result, interpretation, artifact_status, and artifacts. |
