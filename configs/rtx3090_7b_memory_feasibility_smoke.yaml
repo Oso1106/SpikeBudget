@@ -1,5 +1,5 @@
-name: gate74_7b_3090_smoke
-gate: Gate74
+name: rtx3090_7b_memory_feasibility_smoke
+evidence_lane: DCLM benchmark-protocol diagnostic
 hardware:
   gpu_class: RTX 3090
   min_vram_gb: 24

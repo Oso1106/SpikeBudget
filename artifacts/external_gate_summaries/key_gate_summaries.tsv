@@ -1,6 +1,0 @@
-gate	status	metric	result	artifact_policy
-Gate89	positive	WikiText2 PPL	9.970943	summary_only_from_supplied_gate_map
-Gate89	positive	C4 PPL	12.820610	summary_only_from_supplied_gate_map
-Gate130	positive	best scratch BPB	2.080363	summary_only_from_supplied_gate_map
-Gate133	positive	mean scratch BPB at LR 3e-4 for 6000 steps	1.804832	summary_only_from_supplied_gate_map
-Gate134	caution	best pretrained locked WikiText2 PPL	10.027895	summary_only_from_supplied_gate_map

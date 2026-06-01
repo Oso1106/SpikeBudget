@@ -1,31 +1,31 @@
-=== gate129_s1234_baseline300_d512_l4_lr1e3 seed=1234 steps=300 d_model=512 layers=4 lr=0.001 ===
+=== dense_low_lr_scratch_s1234_baseline300_d512_l4_lr1e3 seed=1234 steps=300 d_model=512 layers=4 lr=0.001 ===
 {"best_theory": "", "direction": "no_completed_hypotheses", "reason": "No completed non-baseline rows were available."}
-=== gate129_s1234_steps600_d512_l4_lr1e3 seed=1234 steps=600 d_model=512 layers=4 lr=0.001 ===
+=== dense_low_lr_scratch_s1234_steps600_d512_l4_lr1e3 seed=1234 steps=600 d_model=512 layers=4 lr=0.001 ===
 {"best_theory": "steps600", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s1234_steps1000_d512_l4_lr1e3 seed=1234 steps=1000 d_model=512 layers=4 lr=0.001 ===
+=== dense_low_lr_scratch_s1234_steps1000_d512_l4_lr1e3 seed=1234 steps=1000 d_model=512 layers=4 lr=0.001 ===
 {"best_theory": "steps600", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s1234_lr3e4_d512_l4 seed=1234 steps=300 d_model=512 layers=4 lr=0.0003 ===
+=== dense_low_lr_scratch_s1234_lr3e4_d512_l4 seed=1234 steps=300 d_model=512 layers=4 lr=0.0003 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s1234_lr2e3_d512_l4 seed=1234 steps=300 d_model=512 layers=4 lr=0.002 ===
+=== dense_low_lr_scratch_s1234_lr2e3_d512_l4 seed=1234 steps=300 d_model=512 layers=4 lr=0.002 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s1234_d768_l4_steps300_lr1e3 seed=1234 steps=300 d_model=768 layers=4 lr=0.001 ===
+=== dense_low_lr_scratch_s1234_d768_l4_steps300_lr1e3 seed=1234 steps=300 d_model=768 layers=4 lr=0.001 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s1234_d512_l6_steps300_lr1e3 seed=1234 steps=300 d_model=512 layers=6 lr=0.001 ===
+=== dense_low_lr_scratch_s1234_d512_l6_steps300_lr1e3 seed=1234 steps=300 d_model=512 layers=6 lr=0.001 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s4321_baseline300_d512_l4_lr1e3 seed=4321 steps=300 d_model=512 layers=4 lr=0.001 ===
+=== dense_low_lr_scratch_s4321_baseline300_d512_l4_lr1e3 seed=4321 steps=300 d_model=512 layers=4 lr=0.001 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s4321_steps600_d512_l4_lr1e3 seed=4321 steps=600 d_model=512 layers=4 lr=0.001 ===
+=== dense_low_lr_scratch_s4321_steps600_d512_l4_lr1e3 seed=4321 steps=600 d_model=512 layers=4 lr=0.001 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s4321_steps1000_d512_l4_lr1e3 seed=4321 steps=1000 d_model=512 layers=4 lr=0.001 ===
+=== dense_low_lr_scratch_s4321_steps1000_d512_l4_lr1e3 seed=4321 steps=1000 d_model=512 layers=4 lr=0.001 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s4321_lr3e4_d512_l4 seed=4321 steps=300 d_model=512 layers=4 lr=0.0003 ===
+=== dense_low_lr_scratch_s4321_lr3e4_d512_l4 seed=4321 steps=300 d_model=512 layers=4 lr=0.0003 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s4321_lr2e3_d512_l4 seed=4321 steps=300 d_model=512 layers=4 lr=0.002 ===
+=== dense_low_lr_scratch_s4321_lr2e3_d512_l4 seed=4321 steps=300 d_model=512 layers=4 lr=0.002 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s4321_d768_l4_steps300_lr1e3 seed=4321 steps=300 d_model=768 layers=4 lr=0.001 ===
+=== dense_low_lr_scratch_s4321_d768_l4_steps300_lr1e3 seed=4321 steps=300 d_model=768 layers=4 lr=0.001 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== gate129_s4321_d512_l6_steps300_lr1e3 seed=4321 steps=300 d_model=512 layers=6 lr=0.001 ===
+=== dense_low_lr_scratch_s4321_d512_l6_steps300_lr1e3 seed=4321 steps=300 d_model=512 layers=6 lr=0.001 ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-=== Gate129 final summary ===
+=== dense low-LR scratch screen final summary ===
 {"best_theory": "lr3e4", "direction": "no_positive_theory_yet", "reason": "No hypothesis passed the two-seed, >=5%, >=2x-noise rule."}
-Gate129 dense-scaling autoresearch finished.
+dense low-LR scratch screen dense-scaling autoresearch finished.

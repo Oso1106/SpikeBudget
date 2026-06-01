@@ -1,10 +1,10 @@
-# Public Gate Reproducibility Implementation Plan
+# Public Technology Milestone Reproducibility Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Turn the minimal SpikeBudget repo into a public, reproducible scaffold for the gate trail behind 7B-class SNN pretraining on RTX 3090-class hardware.
+**Goal:** Turn the minimal SpikeBudget repo into a public, reproducible scaffold for the technology trail behind 7B-class SNN pretraining on RTX 3090-class hardware.
 
-**Architecture:** Keep heavyweight GPU training as documented recipes and make CI validate the lightweight public artifacts. Put deterministic helper code in a small Python package, and keep the gate ledger in checked-in YAML so readers can audit status without running CUDA.
+**Architecture:** Keep heavyweight GPU training as documented recipes and make CI validate the lightweight public artifacts. Put deterministic helper code in a small Python package, and keep the technology milestone ledger in checked-in YAML so readers can audit status without running CUDA.
 
 **Tech Stack:** Python 3.10+, PyYAML, pytest, Markdown, GitHub Actions.
 
@@ -15,10 +15,10 @@
 **Files:**
 - Create: `spikebudget/__init__.py`
 - Create: `spikebudget/config.py`
-- Create: `spikebudget/gates.py`
+- Create: `spikebudget/evidence.py`
 - Create: `spikebudget/training.py`
 - Create: `tests/test_config.py`
-- Create: `tests/test_gates.py`
+- Create: `tests/test_evidence.py`
 - Create: `tests/test_training.py`
 - Create: `pyproject.toml`
 
@@ -30,9 +30,9 @@ Expected: fail until `spikebudget.training` exists.
 
 - [ ] **Step 2: Implement public helpers**
 
-Implement deterministic helpers copied in public-safe form from Gate74.
+Implement deterministic helpers copied in public-safe form from DCLM benchmark-protocol diagnostic.
 
-- [ ] **Step 3: Add config and gate validators**
+- [ ] **Step 3: Add config and evidence validators**
 
 Implement YAML loaders with explicit required fields and useful error messages.
 
@@ -46,14 +46,14 @@ Expected: all tests pass.
 
 **Files:**
 - Replace: `README.md`
-- Create: `docs/gates.md`
+- Create: `docs/technology_milestones.md`
 - Create: `docs/reproduce_3090.md`
 - Create: `docs/limitations.md`
-- Create: `configs/gate74_7b_3090_smoke.yaml`
-- Create: `configs/gate74_dclm_3090_long.yaml`
-- Create: `configs/gate129_dense_screen.yaml`
-- Create: `data/gates.yaml`
-- Copy: visible Gate74 and Gate129 lightweight artifacts into `artifacts/`
+- Create: `configs/rtx3090_7b_memory_feasibility_smoke.yaml`
+- Create: `configs/dclm_protocol_3090_long.yaml`
+- Create: `configs/dense_low_lr_scratch_screen.yaml`
+- Create: `data/technology_milestones.yaml`
+- Copy: visible DCLM benchmark-protocol diagnostic and dense low-LR scratch screen lightweight artifacts into `artifacts/`
 
 - [ ] **Step 1: Write public docs**
 
@@ -61,15 +61,15 @@ Docs must use tables for results and must not claim quality parity or eval energ
 
 - [ ] **Step 2: Add configs**
 
-Configs must include `name`, `gate`, `hardware`, `model`, `optimizer`, `data`, `run`, and `claim_scope`.
+Configs must include `name`, `evidence_lane`, `hardware`, `model`, `optimizer`, `data`, `run`, and `claim_scope`.
 
-- [ ] **Step 3: Add gate ledger**
+- [ ] **Step 3: Add technology milestone ledger**
 
-`data/gates.yaml` must include every gate named in the mind map and mark artifact availability as `included`, `summary_only`, or `external_missing`.
+`data/technology_milestones.yaml` must include every technology milestone named in the mind map and mark artifact availability as `included`, `summary_only`, or `external_missing`.
 
 - [ ] **Step 4: Copy lightweight evidence**
 
-Copy visible Gate74 diagnostic files and Gate129 dense-scaling summary/results/log snippets into `artifacts/`.
+Copy visible DCLM benchmark-protocol diagnostic files and dense low-LR scratch screen summary/results/log snippets into `artifacts/`.
 
 - [ ] **Step 5: Run tests**
 
@@ -90,7 +90,7 @@ Test that `scripts.validate_repo.main([])` returns `0` for the checked-in repo s
 
 - [ ] **Step 2: Implement validation script**
 
-Validate configs, gate ledger, required docs, and included artifact paths.
+Validate configs, technology milestone ledger, required docs, and included artifact paths.
 
 - [ ] **Step 3: Add CI workflow**
 

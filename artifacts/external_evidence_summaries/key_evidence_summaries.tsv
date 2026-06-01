@@ -1,0 +1,6 @@
+technology_lane	status	metric	result	artifact_policy
+public quantized checkpoint reproduction	positive	WikiText2 PPL	9.970943	summary_only_from_supplied_evidence_map
+public quantized checkpoint reproduction	positive	C4 PPL	12.820610	summary_only_from_supplied_evidence_map
+dense low-LR scratch stability verification	positive	best scratch BPB	2.080363	summary_only_from_supplied_evidence_map
+long-horizon dense scratch verification	positive	mean scratch BPB at LR 3e-4 for 6000 steps	1.804832	summary_only_from_supplied_evidence_map
+pretrained low-LR horizon near miss	caution	best pretrained locked WikiText2 PPL	10.027895	summary_only_from_supplied_evidence_map

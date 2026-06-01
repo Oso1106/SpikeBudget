@@ -10,7 +10,7 @@ import yaml
 
 REQUIRED_TOP_LEVEL_KEYS = (
     "name",
-    "gate",
+    "evidence_lane",
     "hardware",
     "model",
     "optimizer",
@@ -39,7 +39,7 @@ def validate_repro_config(data: Any, source: str) -> dict[str, Any]:
         if key not in data:
             raise ValueError(f"{source}: missing required key: {key}")
 
-    for key in ("name", "gate"):
+    for key in ("name", "evidence_lane"):
         if not isinstance(data[key], str) or not data[key].strip():
             raise ValueError(f"{source}: {key} must be a non-empty string")
 

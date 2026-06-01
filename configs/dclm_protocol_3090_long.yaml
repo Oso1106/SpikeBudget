@@ -1,5 +1,5 @@
-name: gate74_dclm_3090_long
-gate: Gate74
+name: dclm_protocol_3090_long
+evidence_lane: DCLM benchmark-protocol diagnostic
 hardware:
   gpu_class: RTX 3090
   min_vram_gb: 24

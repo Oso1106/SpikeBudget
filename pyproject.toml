@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "spikebudget"
 version = "0.1.0"
-description = "Public reproducibility scaffold for RTX 3090-class SNN pretraining gates."
+description = "Public reproducibility scaffold for RTX 3090-class SNN pretraining evidence."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
