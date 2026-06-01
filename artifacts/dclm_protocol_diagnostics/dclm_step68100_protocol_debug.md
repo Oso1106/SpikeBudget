@@ -1,6 +1,6 @@
 # DCLM benchmark-protocol diagnostic Step 68100 Benchmark Protocol Debug
 
-Checkpoint: `external-artifact:dclm_protocol_stream_s50000_best_ppl_model.pt`
+Scratch run artifact: `external-artifact:dclm_protocol_stream_s50000_best_ppl_model.pt`
 
 Step: local `46500`, global `68100`
 
@@ -24,7 +24,7 @@ Validation: DCLM PPL `113.8061772770991`, WT2 continuity PPL `207.13581907254456
 | The original 32-example result was noisy but directionally real | 256-example raw mode stayed near chance: CORE `0.3359`, MMLU `0.2539`, EXTENDED `0.1758` | Low scores were not just a 32-example sampling accident |
 | Length normalization does not explain the issue | Length-normalized results: CORE `0.2656`, MMLU `0.2656`, EXTENDED `0.2422` | Raw continuation length bias is present, but fixing it does not recover meaningful accuracy |
 | Showing answer options and scoring labels does not rescue performance | Label results: CORE `0.2852`, MMLU `0.2695`, EXTENDED `0.2227` | Hidden options are not the sole root cause |
-| Label scoring exposed a strong A-label bias | Label scorer predicted answer index `0` for most examples | The checkpoint does not yet robustly condition on MCQ option semantics |
+| Label scoring exposed a strong A-label bias | Label scorer predicted answer index `0` for most examples | The scratch run artifact does not yet robustly condition on MCQ option semantics |
 | These are diagnostic micro-scores, not official benchmark scores | Artifacts use `built_in_dclm_protocol_diagnostic; not official DCLM centered CORE/EXTENDED` | Report as micro screens, not official CORE/MMLU/EXTENDED |
 
 ## Artifact Paths

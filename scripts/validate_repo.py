@@ -8,6 +8,7 @@ import sys
 
 from spikebudget.config import load_repro_config
 from spikebudget.evidence import (
+    contains_disallowed_external_weight_reference,
     contains_disallowed_public_label,
     contains_private_path,
     load_evidence_ledger,
@@ -22,11 +23,20 @@ REQUIRED_DOCS = (
 )
 PUBLIC_TEXT_GLOBS = (
     "README.md",
+    "pyproject.toml",
     "docs/**/*.md",
+    "docs/**/*.txt",
     "data/**/*.yaml",
     "configs/**/*.yaml",
+    ".github/**/*.yaml",
+    ".github/**/*.yml",
+    "scripts/**/*.py",
+    "spikebudget/**/*.py",
+    "tests/**/*.py",
     "artifacts/**/*.md",
     "artifacts/**/*.tsv",
+    "artifacts/**/*.csv",
+    "artifacts/**/*.txt",
     "artifacts/**/*.json",
     "artifacts/**/*.log",
 )
@@ -85,6 +95,8 @@ def validate_public_path_hygiene(root: Path) -> list[str]:
             errors.append(f"private path found in public file: {relative_path}")
         if contains_disallowed_public_label(text):
             errors.append(f"disallowed public label found in public file: {relative_path}")
+        if contains_disallowed_external_weight_reference(text):
+            errors.append(f"disallowed external-weight reference found in public file: {relative_path}")
     return errors
 
 

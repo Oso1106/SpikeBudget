@@ -27,6 +27,6 @@ run:
   eval_every: 1000
   save_best_checkpoint: true
 claim_scope:
-  quality_parity: false
+  scratch_only: true
   eval_energy_win: false
-  purpose: long_horizon_pretraining_reproduction
+  purpose: long_horizon_scratch_reproduction

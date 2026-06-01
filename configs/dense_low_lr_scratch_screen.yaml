@@ -32,6 +32,6 @@ run:
   batch: 16
   eval_iters: 1
 claim_scope:
-  quality_parity: false
+  scratch_only: true
   eval_energy_win: false
   purpose: screen_low_lr_dense_optimization_stability

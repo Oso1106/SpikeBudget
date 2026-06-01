@@ -1,0 +1,3 @@
+technology_lane	status	metric	result	artifact_policy
+dense low-LR scratch stability verification	positive	best scratch BPB	2.080363	summary_only_from_supplied_evidence_map
+long-horizon dense scratch verification	positive	mean scratch BPB at LR 3e-4 for 6000 steps	1.804832	summary_only_from_supplied_evidence_map

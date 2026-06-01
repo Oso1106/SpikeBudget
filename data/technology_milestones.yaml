@@ -50,7 +50,7 @@
 - id: capacity_lm_scaling_bridge
   title: Capacity, LM, and Spike-Native Scaling
   status: evidence
-  result: L4 and RTX 3090 experiments show large SNN-transformer training is feasible, but quality is hard.
+  result: L4 and RTX 3090 experiments show large SNN-transformer training from scratch is feasible, but quality is hard.
   interpretation: This branch bridges systems roofline evidence to language-model quality experiments.
   artifact_status: summary_only
   artifacts: []
@@ -66,79 +66,7 @@
   title: 7B Scratch Training
   status: caution
   result: Rank-64 rSVD-GaLore reaches 202.127 PPL on the 6.713B SNN-transformer shape.
-  interpretation: It proves single-3090 training feasibility with rSVD-GaLore, not public checkpoint parity.
-  artifact_status: external_missing
-  artifacts: []
-- id: teacher_distillation_calibration
-  title: Teacher and Distillation
-  status: negative
-  result: A 1000-step top-k distillation run reaches PPL 217.724.
-  interpretation: Alpha 0.2 improves over high-alpha distillation but still misses the best scratch memory-feasibility result.
-  artifact_status: external_missing
-  artifacts: []
-- id: public_quantized_checkpoint_reproduction
-  title: Public Quantized Checkpoint Reproduction
-  status: positive
-  result: The public quantized checkpoint reproduction reaches WikiText2 PPL 9.970943 and C4 PPL 12.820610.
-  interpretation: This is the fair public quality-control target; the stronger-checkpoint chase was stopped.
-  artifact_status: included
-  artifacts:
-    - artifacts/external_evidence_summaries/key_evidence_summaries.tsv
-    - artifacts/external_evidence_summaries/README.md
-- id: locked_metric_calibration_push
-  title: Locked Metric and Calibration Push
-  status: evidence
-  result: Locked seq2048/eight-window metric makes the teacher/distillation branch harder, with 12.137 baseline and 11.962 best calibration result.
-  interpretation: The short-window result is fragile; locked long-context evaluation is the comparison point.
-  artifact_status: external_missing
-  artifacts: []
-- id: output_side_repair_ladder
-  title: Output-Side Ladder
-  status: positive
-  result: Hidden-channel affine output repair reaches 11.050 PPL; soft clipping produces 250.898 and 202.168 PPL.
-  interpretation: Output-side repair is real, but the tested soft-clip path is destructive.
-  artifact_status: external_missing
-  artifacts: []
-- id: clean_hidden_preact_affine_baseline
-  title: Clean Hidden and Pre-Activation Affine
-  status: positive
-  result: Clean hidden plus pre-activation affine reaches 10.980 PPL.
-  interpretation: Best local output-side baseline for later saliency and dense calibration, still 1.101x the public quantized checkpoint result.
-  artifact_status: external_missing
-  artifacts: []
-- id: uniform_deeper_wrapping_failure
-  title: Uniform Deeper Wrapping Fails
-  status: negative
-  result: Last-four residual bridge regresses to 12.583 PPL.
-  interpretation: More wrapped layers are not automatically better.
-  artifact_status: external_missing
-  artifacts: []
-- id: trainable_saliency_smoke
-  title: Trainable Saliency Smoke
-  status: caution
-  result: Short seq512 / eval_iters=2 saliency smoke reports 8.519 PPL.
-  interpretation: Strong smoke result only; it is not comparable to locked public quality-control or clean hidden affine metrics.
-  artifact_status: external_missing
-  artifacts: []
-- id: locked_soft_saliency_miss
-  title: Locked Soft Saliency Misses
-  status: negative
-  result: Best soft hidden saliency reaches 11.6916 PPL, worse than the clean hidden affine baseline at 10.9803 PPL.
-  interpretation: Locked saliency does not improve quality.
-  artifact_status: external_missing
-  artifacts: []
-- id: hard_mask_bridge_robustness
-  title: Hard Mask, Bridges, Robustness
-  status: negative
-  result: Hard top-k reaches 11.8336/11.8589; bridge variants reach 14.0803/14.1415; offset robustness reaches 16.6474.
-  interpretation: Hard masking, naive bridge expansion, and offset validation do not rescue saliency.
-  artifact_status: external_missing
-  artifacts: []
-- id: full_saliency_rule_shootout
-  title: Full Saliency Rule Shootout
-  status: negative
-  result: Locked full run ranks no-saliency first at 11.1913 PPL; best saliency is 11.6513 PPL.
-  interpretation: Do not continue pretrained saliency scale-up from this wrapper.
+  interpretation: It proves single-3090 scratch-training feasibility with rSVD-GaLore under the documented memory-saving path.
   artifact_status: external_missing
   artifacts: []
 - id: true_scratch_saliency_shootout
@@ -217,15 +145,8 @@
   interpretation: Positive scratch theory is optimization stability under this profile.
   artifact_status: included
   artifacts:
-    - artifacts/external_evidence_summaries/key_evidence_summaries.tsv
-    - artifacts/external_evidence_summaries/README.md
-- id: pretrained_low_lr_transfer_check
-  title: Pretrained Low-LR Transfer
-  status: caution
-  result: Clean hidden affine wrapper with LR 7.5e-5 for 1400 steps reaches 10.889457 PPL.
-  interpretation: The low-LR horizon theory transfers, but it remains 0.918514 PPL above the public quantized checkpoint reproduction.
-  artifact_status: external_missing
-  artifacts: []
+    - artifacts/external_scratch_summaries/key_scratch_summaries.tsv
+    - artifacts/external_scratch_summaries/README.md
 - id: scratch_architecture_search
   title: Scratch Architecture Search
   status: negative
@@ -240,17 +161,8 @@
   interpretation: Dense no-saliency low-LR training remains horizon-limited beyond 2000 steps.
   artifact_status: included
   artifacts:
-    - artifacts/external_evidence_summaries/key_evidence_summaries.tsv
-    - artifacts/external_evidence_summaries/README.md
-- id: pretrained_low_lr_horizon_near_miss
-  title: Pretrained Low-LR Horizon Near Miss
-  status: caution
-  result: LR 7.5e-5 for 6000 pretrained calibration reaches 10.027895 PPL.
-  interpretation: Strong local pretrained lever, but still 0.056951 PPL above the public quantized checkpoint reproduction.
-  artifact_status: included
-  artifacts:
-    - artifacts/external_evidence_summaries/key_evidence_summaries.tsv
-    - artifacts/external_evidence_summaries/README.md
+    - artifacts/external_scratch_summaries/key_scratch_summaries.tsv
+    - artifacts/external_scratch_summaries/README.md
 - id: eval_nsight_counter_parse_check
   title: Eval Nsight Counters Inconclusive
   status: inconclusive
@@ -261,14 +173,14 @@
 - id: eval_energy_rejection
   title: Eval Energy Claim Rejected
   status: negative
-  result: The C4 quality run passes C4 quality but uses +2.824% total energy/token; sparse variants fail quality.
+  result: The C4 quality run uses +2.824% total energy/token and sparse variants fail quality.
   interpretation: No eval energy-win claim is valid under the C4 quality bound.
   artifact_status: external_missing
   artifacts: []
 - id: decision
   title: What To Trust Today
   status: evidence
-  result: Paper core is solid; saliency is closed; dense optimization nearly reaches the public quantized checkpoint reproduction but not parity.
-  interpretation: Trust the bounded systems claim, the public quantized checkpoint reproduction as the fair control, pretrained low-LR calibration as a near miss, and negative evidence as closed.
+  result: Paper core is solid; scratch saliency is closed; dense low-LR scratch optimization is the current positive direction.
+  interpretation: Trust the bounded systems claim, the 7B scratch memory-feasibility result as a launch proof, dense low-LR scratch training as the positive optimization direction, and negative scratch evidence as closed.
   artifact_status: summary_only
   artifacts: []

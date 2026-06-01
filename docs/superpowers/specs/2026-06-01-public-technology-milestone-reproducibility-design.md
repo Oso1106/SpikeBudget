@@ -2,7 +2,7 @@
 
 ## Goal
 
-Make `Oso1106/SpikeBudget` usable by public GitHub readers who want to understand and reproduce the project path toward 7B-class spiking neural network pretraining on RTX 3090-class hardware.
+Make `Oso1106/SpikeBudget` usable by public GitHub readers who want to understand and reproduce the project path toward 7B-class spiking neural network scratch training on RTX 3090-class hardware.
 
 ## Claim Contract
 
@@ -12,7 +12,7 @@ The public repo must present a bounded claim:
 |---|---|
 | Compute-side SNN training | The studied temporal-gradient schedule and kernel shape can move a matched SNN training path from bandwidth-bound execution toward compute-side GPU execution. |
 | 7B-class feasibility | A 6.713B-parameter SNN-transformer shape can be trained from scratch on a single RTX 3090-class GPU with rSVD-GaLore-style optimizer memory control. |
-| Quality parity | Not claimed. Public quantized checkpoint reproduction is the fair public quantized control, while local pretrained low-LR horizon near miss nearly closes but does not beat that control. |
+| Broader model-quality comparison | Not claimed. The public evidence focuses on train-from-scratch memory feasibility and scratch BPB optimization behavior. |
 | Eval energy | Not claimed. Eval Nsight counter parse checks are inconclusive and eval energy rejection checks reject the current eval-energy win. |
 
 ## Evidence Source

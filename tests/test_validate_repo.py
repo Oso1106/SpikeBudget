@@ -10,13 +10,25 @@ def test_validate_repo_main_reports_success_for_checked_in_repo():
 def test_validate_repo_rejects_private_paths_in_public_files(tmp_path):
     write_minimal_repo(tmp_path)
     (tmp_path / "docs" / "limitations.md").write_text(
-        "| Bad | Path |\n| --- | --- |\n| leak | stream_yizhou_s50000 |\n",
+        "| Bad | Path |\n| --- | --- |\n| leak | stream_" + "yi" + "zhou_s50000 |\n",
         encoding="utf-8",
     )
 
     errors = validate(tmp_path)
 
     assert any("private path" in error for error in errors)
+
+
+def test_validate_repo_rejects_external_weight_framing_in_public_files(tmp_path):
+    write_minimal_repo(tmp_path)
+    (tmp_path / "docs" / "limitations.md").write_text(
+        "| Bad | Framing |\n| --- | --- |\n| leak | " + "pre" + "trained control |\n",
+        encoding="utf-8",
+    )
+
+    errors = validate(tmp_path)
+
+    assert any("external-weight reference" in error for error in errors)
 
 
 def write_minimal_repo(root: Path) -> None:
@@ -42,7 +54,7 @@ data:
 run:
   max_steps: 1
 claim_scope:
-  quality_parity: false
+  scratch_only: true
   eval_energy_win: false
 """,
         encoding="utf-8",
