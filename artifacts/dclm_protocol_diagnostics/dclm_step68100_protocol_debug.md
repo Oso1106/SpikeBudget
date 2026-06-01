@@ -1,6 +1,6 @@
-# Gate74 Step 68100 Benchmark Protocol Debug
+# DCLM benchmark-protocol diagnostic Step 68100 Benchmark Protocol Debug
 
-Checkpoint: `external-artifact:gate74_dclm_stream_s50000_best_ppl_model.pt`
+Checkpoint: `external-artifact:dclm_protocol_stream_s50000_best_ppl_model.pt`
 
 Step: local `46500`, global `68100`
 
@@ -25,15 +25,15 @@ Validation: DCLM PPL `113.8061772770991`, WT2 continuity PPL `207.13581907254456
 | Length normalization does not explain the issue | Length-normalized results: CORE `0.2656`, MMLU `0.2656`, EXTENDED `0.2422` | Raw continuation length bias is present, but fixing it does not recover meaningful accuracy |
 | Showing answer options and scoring labels does not rescue performance | Label results: CORE `0.2852`, MMLU `0.2695`, EXTENDED `0.2227` | Hidden options are not the sole root cause |
 | Label scoring exposed a strong A-label bias | Label scorer predicted answer index `0` for most examples | The checkpoint does not yet robustly condition on MCQ option semantics |
-| These are diagnostic micro-scores, not official benchmark scores | Artifacts use `built_in_gate74_protocol_diagnostic; not official DCLM centered CORE/EXTENDED` | Report as micro screens, not official CORE/MMLU/EXTENDED |
+| These are diagnostic micro-scores, not official benchmark scores | Artifacts use `built_in_dclm_protocol_diagnostic; not official DCLM centered CORE/EXTENDED` | Report as micro screens, not official CORE/MMLU/EXTENDED |
 
 ## Artifact Paths
 
 | Mode | External artifact prefix |
 |---|---|
-| Raw text | `external-artifact:gate74_step68100_diag256_cachefix_raw_text_*` |
-| Length-normalized text | `external-artifact:gate74_step68100_diag256_cachefix_len_norm_text_*` |
-| Label scoring | `external-artifact:gate74_step68100_diag256_cachefix_label_*` |
+| Raw text | `external-artifact:dclm_step68100_diag256_cachefix_raw_text_*` |
+| Length-normalized text | `external-artifact:dclm_step68100_diag256_cachefix_len_norm_text_*` |
+| Label scoring | `external-artifact:dclm_step68100_diag256_cachefix_label_*` |
 
 The archival diagnostic runner is intentionally not included in this public
 evidence slice. Public runs should use the release runner and configs in this

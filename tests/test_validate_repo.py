@@ -24,13 +24,13 @@ def write_minimal_repo(root: Path) -> None:
     (root / "configs").mkdir()
     (root / "data").mkdir()
     (root / "README.md").write_text("# SpikeBudget\n", encoding="utf-8")
-    (root / "docs" / "gates.md").write_text("# Gate Ledger\n", encoding="utf-8")
+    (root / "docs" / "technology_milestones.md").write_text("# Technology Milestone Ledger\n", encoding="utf-8")
     (root / "docs" / "reproduce_3090.md").write_text("# Runbook\n", encoding="utf-8")
     (root / "docs" / "limitations.md").write_text("# Limits\n", encoding="utf-8")
     (root / "configs" / "smoke.yaml").write_text(
         """
 name: smoke
-gate: GateX
+evidence_lane: Inline validation lane
 hardware:
   gpu_class: RTX 3090
 model:
@@ -47,9 +47,9 @@ claim_scope:
 """,
         encoding="utf-8",
     )
-    (root / "data" / "gates.yaml").write_text(
+    (root / "data" / "technology_milestones.yaml").write_text(
         """
-- id: gate103
+- id: eval_nsight_counter_parse_check
   title: Eval Nsight Counters Inconclusive
   status: inconclusive
   result: none

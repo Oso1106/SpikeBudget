@@ -2,9 +2,9 @@
 
 | Artifact set | Contents | Exclusions |
 | --- | --- | --- |
-| `gate74_diagnostics` | Gate74 step-68100 benchmark protocol diagnostic summary. | Checkpoints, generated benchmark caches, and archival runner source. |
-| `gate129_dense_scaling` | Gate129 dense-scaling summary, results, theory summary, best summary, sweep log, and compact log snippets. | Full checkpoints, dataset shards, and large scratch directories. |
-| `external_gate_summaries` | Compact summary rows for Gate89, Gate130, Gate133, and Gate134 extracted from the supplied gate map. | Raw logs, raw JSONL files, checkpoints, and datasets. |
+| `dclm_protocol_diagnostics` | DCLM benchmark-protocol diagnostic summary. | Checkpoints, generated benchmark caches, and archival runner source. |
+| `dense_low_lr_scratch_screen` | Dense low-LR scratch summary, results, theory summary, best summary, sweep log, and compact log snippets. | Full checkpoints, dataset shards, and large scratch directories. |
+| `external_evidence_summaries` | Compact summary rows for public quantized checkpoint reproduction, dense low-LR scratch stability verification, long-horizon dense scratch verification, and pretrained low-LR horizon near miss extracted from the supplied evidence map. | Raw logs, raw JSONL files, checkpoints, and datasets. |
 
 These files are lightweight evidence for the public ledger. Large parquet files,
 checkpoints, and private scratch paths are intentionally not copied into this

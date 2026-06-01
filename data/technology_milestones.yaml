@@ -5,270 +5,270 @@
   interpretation: The claim excludes arbitrary SNN workloads, neuromorphic-device comparisons, and accuracy SOTA.
   artifact_status: summary_only
   artifacts: []
-- id: g1_19
+- id: early_mechanism_search
   title: Early Mechanism Search
   status: evidence
-  result: Early kernels, event fusion, sequence tasks, and correctness gates established the project vocabulary.
-  interpretation: Use as mechanism context before the stronger CUDA gates.
+  result: Early kernels, event fusion, sequence tasks, and correctness checks established the project vocabulary.
+  interpretation: Use as mechanism context before the stronger CUDA evidence.
   artifact_status: summary_only
   artifacts: []
-- id: g25_g27
+- id: kernel_shape_cutlass_comparison
   title: Kernel Shape Decides
   status: positive
-  result: Tiled scalar reduction was 0.098x while CUTLASS GEMM gradient was 34.14x.
+  result: Tiled scalar reduction was 0.098x while the CUTLASS GEMM gradient path was 34.14x.
   interpretation: The same mathematical direction can fail or win depending on kernel shape.
   artifact_status: summary_only
   artifacts: []
-- id: gate40
+- id: task_level_temporal_cuda_benchmark
   title: Task-Level Temporal Training
   status: positive
   result: Matched optimized path was 128.75x memory-cheaper and 6.78x faster on the L4 task.
   interpretation: This is the core task-level benchmark tying optimized work to the materialized reference.
   artifact_status: summary_only
   artifacts: []
-- id: gate41
+- id: real_cuda_timing_correction
   title: Real Baseline Correction
   status: caution
-  result: Synthetic reviewer-facing suite was replaced with real CUDA kernels and cudaEvent timing.
+  result: Synthetic reviewer-facing timing was replaced with real CUDA kernels and cudaEvent timing.
   interpretation: The earlier synthetic-history error must remain visible.
   artifact_status: summary_only
   artifacts: []
-- id: g49_51
+- id: hardware_counter_repeatability
   title: Counters and Repeatability
   status: positive
-  result: Gate49 reports optimized 70.7% SM / 0.08% DRAM and materialized 22.7% SM / 51.3% DRAM.
-  interpretation: These gates provide hardware-counter language plus repeatability context.
+  result: Optimized hardware counters reported 70.7% SM / 0.08% DRAM while the materialized reference reported 22.7% SM / 51.3% DRAM.
+  interpretation: This provides hardware-counter language plus repeatability context.
   artifact_status: summary_only
   artifacts: []
-- id: g53_54
+- id: framework_baseline_comparison
   title: Framework Baselines
   status: evidence
   result: SpikingJelly and snnTorch matched supervised CE workloads; BindsNET STDP is not matched CE.
   interpretation: Useful comparison context, not proof of broad framework dominance.
   artifact_status: summary_only
   artifacts: []
-- id: g55_76
+- id: capacity_lm_scaling_bridge
   title: Capacity, LM, and Spike-Native Scaling
   status: evidence
-  result: L4/3090 experiments show large SNN-transformer training is feasible, but quality is hard.
+  result: L4 and RTX 3090 experiments show large SNN-transformer training is feasible, but quality is hard.
   interpretation: This branch bridges systems roofline evidence to language-model quality experiments.
   artifact_status: summary_only
   artifacts: []
-- id: gate74
+- id: dclm_protocol_diagnostic
   title: DCLM Benchmark Protocol Diagnostic
   status: caution
-  result: Step 68100 diagnostic reports DCLM PPL 113.806177 and WT2 continuity PPL 207.135819.
+  result: Step-68100 diagnostic reports DCLM PPL 113.806177 and WT2 continuity PPL 207.135819.
   interpretation: Treat as benchmark-protocol diagnostic micro-screens, not official CORE/MMLU/EXTENDED scoring.
   artifact_status: included
   artifacts:
-    - artifacts/gate74_diagnostics/gate74_step68100_benchmark_protocol_debug.md
-- id: g77_78
+    - artifacts/dclm_protocol_diagnostics/dclm_step68100_protocol_debug.md
+- id: seven_b_scratch_memory_feasibility
   title: 7B Scratch Training
   status: caution
-  result: Gate78 rank64 reaches 202.127 PPL on the 6.713B SNN-transformer shape.
-  interpretation: It proves single-3090 training feasibility with rSVD-GaLore, not SpikeLLM parity.
+  result: Rank-64 rSVD-GaLore reaches 202.127 PPL on the 6.713B SNN-transformer shape.
+  interpretation: It proves single-3090 training feasibility with rSVD-GaLore, not public checkpoint parity.
   artifact_status: external_missing
   artifacts: []
-- id: g80_83
-  title: Gate80 Teacher and Distillation
+- id: teacher_distillation_calibration
+  title: Teacher and Distillation
   status: negative
-  result: Gate83 completes 1000-step top-k distillation at PPL 217.724.
-  interpretation: Alpha 0.2 improves over high-alpha distillation but still misses the Gate78 scratch best.
+  result: A 1000-step top-k distillation run reaches PPL 217.724.
+  interpretation: Alpha 0.2 improves over high-alpha distillation but still misses the best scratch memory-feasibility result.
   artifact_status: external_missing
   artifacts: []
-- id: gate89
-  title: Official SpikeLLM Reproduction
+- id: public_quantized_checkpoint_reproduction
+  title: Public Quantized Checkpoint Reproduction
   status: positive
-  result: Official SpikeLLM W4A4 reaches WikiText2 PPL 9.970943 and C4 PPL 12.820610.
-  interpretation: This is the fair target control; Gate90 stronger-checkpoint chase was stopped.
+  result: The public quantized checkpoint reproduction reaches WikiText2 PPL 9.970943 and C4 PPL 12.820610.
+  interpretation: This is the fair public quality-control target; the stronger-checkpoint chase was stopped.
   artifact_status: included
   artifacts:
-    - artifacts/external_gate_summaries/key_gate_summaries.tsv
-    - artifacts/external_gate_summaries/README.md
-- id: g84_88
+    - artifacts/external_evidence_summaries/key_evidence_summaries.tsv
+    - artifacts/external_evidence_summaries/README.md
+- id: locked_metric_calibration_push
   title: Locked Metric and Calibration Push
   status: evidence
-  result: Locked seq2048/eight-window metric makes Gate80 harder, with 12.137 baseline and Gate85 best 11.962.
+  result: Locked seq2048/eight-window metric makes the teacher/distillation branch harder, with 12.137 baseline and 11.962 best calibration result.
   interpretation: The short-window result is fragile; locked long-context evaluation is the comparison point.
   artifact_status: external_missing
   artifacts: []
-- id: g91_95
+- id: output_side_repair_ladder
   title: Output-Side Ladder
   status: positive
-  result: Gate93 hidden-channel affine reaches 11.050; soft clipping produces 250.898 and 202.168 PPL.
+  result: Hidden-channel affine output repair reaches 11.050 PPL; soft clipping produces 250.898 and 202.168 PPL.
   interpretation: Output-side repair is real, but the tested soft-clip path is destructive.
   artifact_status: external_missing
   artifacts: []
-- id: gate95b
-  title: Best Local Output-Side Result
+- id: clean_hidden_preact_affine_baseline
+  title: Clean Hidden and Pre-Activation Affine
   status: positive
-  result: Clean hidden plus pre-gate affine reaches 10.980 PPL.
-  interpretation: Best local output-side baseline for later saliency and dense calibration, still 1.101x Gate89.
+  result: Clean hidden plus pre-activation affine reaches 10.980 PPL.
+  interpretation: Best local output-side baseline for later saliency and dense calibration, still 1.101x the public quantized checkpoint result.
   artifact_status: external_missing
   artifacts: []
-- id: gate96
+- id: uniform_deeper_wrapping_failure
   title: Uniform Deeper Wrapping Fails
   status: negative
   result: Last-four residual bridge regresses to 12.583 PPL.
   interpretation: More wrapped layers are not automatically better.
   artifact_status: external_missing
   artifacts: []
-- id: gate97
+- id: trainable_saliency_smoke
   title: Trainable Saliency Smoke
   status: caution
   result: Short seq512 / eval_iters=2 saliency smoke reports 8.519 PPL.
-  interpretation: Strong smoke result only; it is not comparable to Gate89 or Gate95b locked metrics.
+  interpretation: Strong smoke result only; it is not comparable to locked public quality-control or clean hidden affine metrics.
   artifact_status: external_missing
   artifacts: []
-- id: gate98
+- id: locked_soft_saliency_miss
   title: Locked Soft Saliency Misses
   status: negative
-  result: Best soft hidden saliency reaches 11.6916 PPL, worse than Gate95b 10.9803.
+  result: Best soft hidden saliency reaches 11.6916 PPL, worse than the clean hidden affine baseline at 10.9803 PPL.
   interpretation: Locked saliency does not improve quality.
   artifact_status: external_missing
   artifacts: []
-- id: g99_102
+- id: hard_mask_bridge_robustness
   title: Hard Mask, Bridges, Robustness
   status: negative
   result: Hard top-k reaches 11.8336/11.8589; bridge variants reach 14.0803/14.1415; offset robustness reaches 16.6474.
   interpretation: Hard masking, naive bridge expansion, and offset validation do not rescue saliency.
   artifact_status: external_missing
   artifacts: []
-- id: gate108
+- id: full_saliency_rule_shootout
   title: Full Saliency Rule Shootout
   status: negative
-  result: Locked full run ranks no-saliency first at 11.1913 PPL; best saliency is 11.6513.
-  interpretation: Do not continue to Gate109 from this wrapper.
+  result: Locked full run ranks no-saliency first at 11.1913 PPL; best saliency is 11.6513 PPL.
+  interpretation: Do not continue pretrained saliency scale-up from this wrapper.
   artifact_status: external_missing
   artifacts: []
-- id: gate111
+- id: true_scratch_saliency_shootout
   title: True Scratch Saliency Shootout
   status: negative
-  result: Fixed timestep reaches 3.3490 BPB; no-saliency 3.3504; learned saliency 3.3602-3.3674.
-  interpretation: Gate110 and Gate114 learned-saliency scale-up stay closed.
+  result: Fixed timestep reaches 3.3490 BPB; no-saliency reaches 3.3504 BPB; learned saliency reaches 3.3602-3.3674 BPB.
+  interpretation: Learned-saliency scratch scale-up stays closed.
   artifact_status: external_missing
   artifacts: []
-- id: g115_118
+- id: hessian_error_saliency_guard
   title: Hessian-Error Saliency Guard
   status: negative
-  result: Gate117 hessian-seeded joint reaches 3.3371 BPB, but the gain is 0.40% and throughput regresses.
+  result: Hessian-seeded joint saliency reaches 3.3371 BPB, but the gain is 0.40% and throughput regresses.
   interpretation: Aligned score machinery is useful instrumentation but misses continuation rules.
   artifact_status: external_missing
   artifacts: []
-- id: g119_123
+- id: signed_subset_saliency_guard
   title: Signed Subset Saliency Guard
   status: negative
-  result: Signed subset Taylor diagnostic gives Spearman -0.2571 and top-k overlap 0.0; Gate123 is skipped.
+  result: Signed subset Taylor diagnostic gives Spearman -0.2571 and top-k overlap 0.0; the follow-up is skipped.
   interpretation: Signed normalization-aware saliency still fails oracle alignment.
   artifact_status: external_missing
   artifacts: []
-- id: gate124
+- id: final_subset_oracle
   title: Final Subset Oracle
   status: negative
   result: Early mask 1100 reaches 3.341844 BPB, only about 0.255% better than no-saliency.
-  interpretation: Local Taylor ranking and the late/settling prior fail; later gates show the gain is unstable.
+  interpretation: Local Taylor ranking and the late/settling prior fail; later checks show the gain is unstable.
   artifact_status: external_missing
   artifacts: []
-- id: gate125
+- id: one_step_lookahead
   title: One-Step Lookahead
   status: caution
-  result: One-step validation predicts 1100 with hard-subset Spearman 0.6000 vs Gate124 final BPB.
-  interpretation: Useful single-seed evidence only; Gate126 rejects robustness.
+  result: One-step validation predicts 1100 with hard-subset Spearman 0.6000 against the final subset BPB.
+  interpretation: Useful single-seed evidence only; repeat-seed robustness rejects it.
   artifact_status: external_missing
   artifacts: []
-- id: gate126
+- id: repeat_seed_robustness_check
   title: Real-Training Repeat
   status: negative
   result: Fresh seed ranks dense no-saliency best at 3.365828 BPB; one-step 1100 becomes worst hard subset.
   interpretation: One-step lookahead is not robust.
   artifact_status: external_missing
   artifacts: []
-- id: gate127
+- id: longer_horizon_selector
   title: Longer-Horizon Selector
   status: negative
   result: Horizons 10/30/100 select 0011, 0110, and 1010, missing the seed-4321 final winners.
   interpretation: Cheap short/medium horizon selection is rejected.
   artifact_status: external_missing
   artifacts: []
-- id: gate128
+- id: multi_seed_variance_check
   title: Multi-Seed Variance Check
   status: negative
   result: Best mean hard-mask gain is 0.002098 BPB, below duplicate-eval noise.
   interpretation: Timestep-mask selection is variance dominated and below-noise across seeds.
   artifact_status: external_missing
   artifacts: []
-- id: gate129
-  title: Dense Scale Screen
+- id: dense_low_lr_scratch_screen
+  title: Dense Low-LR Scratch Screen
   status: caution
   result: LR 3e-4 improves both seeds by mean 0.089184 BPB / 2.657603%, below the continuation rule.
   interpretation: This does not prove a positive theory, but it points away from saliency and toward low-LR optimization stability.
   artifact_status: included
   artifacts:
-    - artifacts/gate129_dense_scaling/gate129_dense_scaling_summary.md
-    - artifacts/gate129_dense_scaling/gate129_dense_scaling_results.tsv
-    - artifacts/gate129_dense_scaling/gate129_theory_summary.tsv
-    - artifacts/gate129_dense_scaling/best_summary.json
-    - artifacts/gate129_dense_scaling/log_snippets.md
-    - artifacts/gate129_dense_scaling/sweep.log
-- id: gate130
-  title: Optimization Stability Verified
+    - artifacts/dense_low_lr_scratch_screen/dense_low_lr_scratch_screen_summary.md
+    - artifacts/dense_low_lr_scratch_screen/dense_low_lr_scratch_screen_results.tsv
+    - artifacts/dense_low_lr_scratch_screen/dense_low_lr_scratch_theory_summary.tsv
+    - artifacts/dense_low_lr_scratch_screen/best_summary.json
+    - artifacts/dense_low_lr_scratch_screen/log_snippets.md
+    - artifacts/dense_low_lr_scratch_screen/sweep.log
+- id: dense_low_lr_scratch_stability
+  title: Dense Low-LR Scratch Stability
   status: positive
   result: LR 3e-4 for 2000 dense no-saliency steps reaches 2.108004 and 2.080363 BPB, mean gain 37.815032%.
   interpretation: Positive scratch theory is optimization stability under this profile.
   artifact_status: included
   artifacts:
-    - artifacts/external_gate_summaries/key_gate_summaries.tsv
-    - artifacts/external_gate_summaries/README.md
-- id: gate131
-  title: Pretrained Optimization Transfer
+    - artifacts/external_evidence_summaries/key_evidence_summaries.tsv
+    - artifacts/external_evidence_summaries/README.md
+- id: pretrained_low_lr_transfer_check
+  title: Pretrained Low-LR Transfer
   status: caution
-  result: Gate95b wrapper with LR 7.5e-5 for 1400 steps reaches 10.889457 PPL.
-  interpretation: The low-LR horizon theory transfers, but it remains 0.918514 PPL above Gate89.
+  result: Clean hidden affine wrapper with LR 7.5e-5 for 1400 steps reaches 10.889457 PPL.
+  interpretation: The low-LR horizon theory transfers, but it remains 0.918514 PPL above the public quantized checkpoint reproduction.
   artifact_status: external_missing
   artifacts: []
-- id: gate132
+- id: scratch_architecture_search
   title: Scratch Architecture Search
   status: negative
   result: Best tested candidate D768/L4 has mean BPB 2.187050, worse than the optimized baseline.
   interpretation: Tested architecture changes do not create a verified positive theory.
   artifact_status: external_missing
   artifacts: []
-- id: gate133
-  title: Longer Horizon Verified
+- id: long_horizon_dense_scratch_verification
+  title: Long-Horizon Dense Scratch Verification
   status: positive
   result: LR 3e-4 for 6000 scratch steps reaches mean final BPB 1.804832 and improves 13.815176%.
   interpretation: Dense no-saliency low-LR training remains horizon-limited beyond 2000 steps.
   artifact_status: included
   artifacts:
-    - artifacts/external_gate_summaries/key_gate_summaries.tsv
-    - artifacts/external_gate_summaries/README.md
-- id: gate134
-  title: Pretrained Horizon Near Miss
+    - artifacts/external_evidence_summaries/key_evidence_summaries.tsv
+    - artifacts/external_evidence_summaries/README.md
+- id: pretrained_low_lr_horizon_near_miss
+  title: Pretrained Low-LR Horizon Near Miss
   status: caution
   result: LR 7.5e-5 for 6000 pretrained calibration reaches 10.027895 PPL.
-  interpretation: Strong local pretrained lever, but still 0.056951 PPL above official Gate89 W4A4.
+  interpretation: Strong local pretrained lever, but still 0.056951 PPL above the public quantized checkpoint reproduction.
   artifact_status: included
   artifacts:
-    - artifacts/external_gate_summaries/key_gate_summaries.tsv
-    - artifacts/external_gate_summaries/README.md
-- id: gate103
+    - artifacts/external_evidence_summaries/key_evidence_summaries.tsv
+    - artifacts/external_evidence_summaries/README.md
+- id: eval_nsight_counter_parse_check
   title: Eval Nsight Counters Inconclusive
   status: inconclusive
   result: RTX 3090 eval profiling produced zero parsed counter samples.
   interpretation: Eval comparisons remain functional evidence only, not counter-backed kernel attribution.
   artifact_status: external_missing
   artifacts: []
-- id: g104_106
+- id: eval_energy_rejection
   title: Eval Energy Claim Rejected
   status: negative
-  result: Gate91 passes C4 quality but uses +2.824% total energy/token; sparse variants fail quality.
+  result: The C4 quality run passes C4 quality but uses +2.824% total energy/token; sparse variants fail quality.
   interpretation: No eval energy-win claim is valid under the C4 quality bound.
   artifact_status: external_missing
   artifacts: []
 - id: decision
   title: What To Trust Today
   status: evidence
-  result: Paper core is solid; saliency is closed; dense optimization nearly reaches Gate89 but not parity.
-  interpretation: Trust the bounded systems claim, Gate89 as the fair control, Gate134 as a near miss, and negative gates as closed.
+  result: Paper core is solid; saliency is closed; dense optimization nearly reaches the public quantized checkpoint reproduction but not parity.
+  interpretation: Trust the bounded systems claim, the public quantized checkpoint reproduction as the fair control, pretrained low-LR calibration as a near miss, and negative evidence as closed.
   artifact_status: summary_only
   artifacts: []

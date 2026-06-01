@@ -1,5 +1,5 @@
-name: gate129_dense_screen
-gate: Gate129
+name: dense_low_lr_scratch_screen
+evidence_lane: dense low-LR scratch screen
 hardware:
   gpu_class: RTX 3090
   min_vram_gb: 24

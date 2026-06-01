@@ -7,12 +7,16 @@ from pathlib import Path
 import sys
 
 from spikebudget.config import load_repro_config
-from spikebudget.gates import contains_private_path, load_gate_ledger
+from spikebudget.evidence import (
+    contains_disallowed_public_label,
+    contains_private_path,
+    load_evidence_ledger,
+)
 
 
 REQUIRED_DOCS = (
     "README.md",
-    "docs/gates.md",
+    "docs/technology_milestones.md",
     "docs/reproduce_3090.md",
     "docs/limitations.md",
 )
@@ -51,12 +55,12 @@ def validate(root: Path) -> list[str]:
         except Exception as exc:  # noqa: BLE001 - report all validation failures.
             errors.append(str(exc))
 
-    ledger_path = root / "data" / "gates.yaml"
+    ledger_path = root / "data" / "technology_milestones.yaml"
     if not ledger_path.exists():
-        errors.append("missing gate ledger: data/gates.yaml")
+        errors.append("missing technology milestone ledger: data/technology_milestones.yaml")
     else:
         try:
-            load_gate_ledger(ledger_path, repo_root=root)
+            load_evidence_ledger(ledger_path, repo_root=root)
         except Exception as exc:  # noqa: BLE001 - report all validation failures.
             errors.append(str(exc))
 
@@ -70,12 +74,17 @@ def validate_public_path_hygiene(root: Path) -> list[str]:
 
     errors: list[str] = []
     for path in iter_public_text_files(root):
+        relative_path = path.relative_to(root)
+        if contains_disallowed_public_label(str(relative_path)):
+            errors.append(f"disallowed public label found in path: {relative_path}")
         try:
             text = path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
             continue
         if contains_private_path(text):
-            errors.append(f"private path found in public file: {path.relative_to(root)}")
+            errors.append(f"private path found in public file: {relative_path}")
+        if contains_disallowed_public_label(text):
+            errors.append(f"disallowed public label found in public file: {relative_path}")
     return errors
 
 

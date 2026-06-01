@@ -1,3 +1,3 @@
 """SpikeBudget public reproducibility helpers."""
 
-__all__ = ["config", "gates", "training"]
+__all__ = ["config", "evidence", "training"]

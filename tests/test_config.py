@@ -12,7 +12,7 @@ def test_checked_in_configs_have_required_public_fields():
     for path in sorted((REPO_ROOT / "configs").glob("*.yaml")):
         config = load_repro_config(path)
         assert config["name"]
-        assert config["gate"]
+        assert config["evidence_lane"]
         assert config["hardware"]["gpu_class"]
         assert config["claim_scope"]["quality_parity"] is False
 
@@ -22,7 +22,7 @@ def test_config_validation_reports_missing_top_level_key():
         validate_repro_config(
             {
                 "name": "bad",
-                "gate": "GateX",
+                "evidence_lane": "Inline validation lane",
                 "hardware": {},
                 "model": {},
                 "data": {},
@@ -38,7 +38,7 @@ def test_config_validation_rejects_quality_parity_claim():
         validate_repro_config(
             {
                 "name": "bad",
-                "gate": "GateX",
+                "evidence_lane": "Inline validation lane",
                 "hardware": {"gpu_class": "RTX 3090"},
                 "model": {"parameters": 1},
                 "optimizer": {"name": "adamw"},
@@ -55,7 +55,7 @@ def test_config_validation_rejects_empty_name():
         validate_repro_config(
             {
                 "name": "",
-                "gate": "GateX",
+                "evidence_lane": "Inline validation lane",
                 "hardware": {"gpu_class": "RTX 3090"},
                 "model": {"parameters": 1},
                 "optimizer": {"name": "adamw"},
@@ -72,7 +72,7 @@ def test_config_validation_rejects_nonpositive_numeric_fields():
         validate_repro_config(
             {
                 "name": "bad",
-                "gate": "GateX",
+                "evidence_lane": "Inline validation lane",
                 "hardware": {"gpu_class": "RTX 3090"},
                 "model": {"parameters": 0},
                 "optimizer": {"name": "adamw", "lr": 0.001},
@@ -87,7 +87,7 @@ def test_config_validation_rejects_nonpositive_numeric_fields():
         validate_repro_config(
             {
                 "name": "bad",
-                "gate": "GateX",
+                "evidence_lane": "Inline validation lane",
                 "hardware": {"gpu_class": "RTX 3090"},
                 "model": {"parameters": 1},
                 "optimizer": {"name": "adamw", "lr": 0},
@@ -102,7 +102,7 @@ def test_config_validation_rejects_nonpositive_numeric_fields():
         validate_repro_config(
             {
                 "name": "bad",
-                "gate": "GateX",
+                "evidence_lane": "Inline validation lane",
                 "hardware": {"gpu_class": "RTX 3090"},
                 "model": {"parameters": 1},
                 "optimizer": {"name": "adamw", "lr": 0.001},
