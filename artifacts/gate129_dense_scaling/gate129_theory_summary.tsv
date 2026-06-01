@@ -1,0 +1,7 @@
+theory	seed_count	mean_gain_bpb	mean_gain_pct	min_gain_bpb	max_gain_bpb	pass_count	status
+lr3e4	2	0.089184	2.657603	0.071768	0.106600	0	screen_only_or_rejected
+steps1000	2	0.033083	0.987257	0.015694	0.050473	0	screen_only_or_rejected
+steps600	2	0.016846	0.502135	0.016147	0.017544	0	screen_only_or_rejected
+d512	2	-0.031326	-0.933844	-0.031465	-0.031187	0	screen_only_or_rejected
+d768	2	-0.063719	-1.899985	-0.071856	-0.055582	0	screen_only_or_rejected
+lr2e3	2	-0.115043	-3.430102	-0.125226	-0.104860	0	screen_only_or_rejected
