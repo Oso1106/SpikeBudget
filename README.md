@@ -48,7 +48,7 @@ For the full evidence table and reading boundary, see
 | Repo validation | Yes | `python -m scripts.validate_repo` |
 | Config and ledger tests | Yes | `python -m pytest -q` |
 | Full GPU train-from-scratch runner example | Yes | `python examples/full_gpu_runner.py --config configs/dense_low_lr_scratch_screen.yaml --device cuda --artifact-dir artifacts/runs/example_gpu_runner --max-steps 20` |
-| Generated checkpoints | Yes | [artifacts/external_scratch_summaries/best_scratch_checkpoint.tsv](https://github.com/Oso1106/SpikeBudget/blob/main/artifacts/external_scratch_summaries/best_scratch_checkpoint.tsv). |
+| Generated checkpoints | No | Store outside git; .gitignore blocks common checkpoint and dataset extensions. |
 
 ## Technology Highlights
 
