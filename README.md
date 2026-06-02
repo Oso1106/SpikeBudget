@@ -19,15 +19,6 @@ memory traffic and faster runtime.
 For the full evidence table and reading boundary, see
 [docs/compute_bound_evidence.md](docs/compute_bound_evidence.md).
 
-| Insight | Implication |
-| --- | --- |
-| In the studied path, SNN speed is not determined by spiking alone. | The main design question is how the temporal gradient and state path map onto GPU kernels. |
-| Kernel shape matters more than the high-level math label. | A scalar-reduction implementation can be slow, while a GEMM-shaped implementation can expose enough dense compute to use the GPU well. |
-| Avoiding temporal-state materialization is central. | Memory traffic, not arithmetic, was the bottleneck in the materialized path; reducing it makes larger scratch runs more feasible. |
-| Counter evidence matches the mechanism. | High SM use and very low DRAM pressure support the compute-side interpretation for the optimized path. |
-| The result is bounded, not universal. | This supports the studied CUDA path and task benchmark; it does not prove all SNN workloads are compute-bound or faster by default. |
-| Future work should optimize representation before scaling. | More model size or more saliency machinery is less useful than first ensuring the training path is GPU-friendly and memory-light. |
-
 ## Bounded Claim
 
 | Claim area | Public claim | Current evidence | Boundary |
