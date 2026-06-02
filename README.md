@@ -87,5 +87,4 @@ For the full evidence table and reading boundary, see
 | Treat this repository as scratch-only evidence. | The public claim is about training SNN profiles from scratch on RTX 3090-class hardware. |
 | Treat DCLM benchmark-protocol diagnostics as micro-screens. | The reported CORE/MMLU/EXTENDED values are not official benchmark scores. |
 | Treat dense low-LR scratch stability as the current positive scratch direction. | Dense no-saliency low-LR training is the branch with positive scratch BPB evidence. |
-| Treat saliency branches as closed. | True scratch saliency shootout, signed subset Taylor saliency guard, final subset oracle, and repeat-seed robustness checks do not justify scale-up. |
 | Treat eval counters and eval energy as boundary-setting only. | Eval Nsight counters were inconclusive and the eval energy checks rejected the energy-win claim. |
