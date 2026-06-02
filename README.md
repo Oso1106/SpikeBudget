@@ -1,10 +1,10 @@
 # SpikeBudget
 
 SpikeBudget is the public documentation, config, and evidence ledger for a
-bounded RTX 3090-class SNN train-from-scratch effort. This slice is a
-reproducibility scaffold: it ships the technology milestone ledger, public run
-contracts, lightweight scratch evidence, and validation code; the full GPU
-training runner and generated checkpoints are not included in this repository.
+bounded SNN train-from-scratch effort on GPUs like RTX 3090-class. This slice is
+a reproducibility scaffold: it ships the technology milestone ledger, public run
+contracts, lightweight scratch evidence, validation code, and a full GPU runner
+example. Generated checkpoint bytes remain outside git.
 
 ## Compute-Bound Summary
 
@@ -56,7 +56,7 @@ For the full evidence table and reading boundary, see
 | --- | --- | --- |
 | Repo validation | Yes | `python -m scripts.validate_repo` |
 | Config and ledger tests | Yes | `python -m pytest -q` |
-| 3090 GPU train-from-scratch runner | No | Use the configs and runbook here with the matching external runner release. |
+| Full GPU train-from-scratch runner example | Yes | `python examples/full_gpu_runner.py --config configs/dense_low_lr_scratch_screen.yaml --device cuda --artifact-dir artifacts/runs/example_gpu_runner --max-steps 20` |
 | Generated checkpoints and datasets | No | Store outside git; `.gitignore` blocks common checkpoint and dataset extensions. |
 
 ## Technology Highlights

@@ -1,4 +1,6 @@
 from pathlib import Path
+import subprocess
+import sys
 
 from scripts.validate_repo import REQUIRED_COMPUTE_BOUND_EVIDENCE, main, validate
 
@@ -31,6 +33,19 @@ def test_validate_repo_rejects_external_weight_framing_in_public_files(tmp_path)
     assert any("external-weight reference" in error for error in errors)
 
 
+def test_validate_repo_rejects_disallowed_public_labels(tmp_path):
+    write_minimal_repo(tmp_path)
+    bad_label = "G" + "ate 1"
+    (tmp_path / "docs" / "limitations.md").write_text(
+        f"| Bad | Label |\n| --- | --- |\n| leak | {bad_label} |\n",
+        encoding="utf-8",
+    )
+
+    errors = validate(tmp_path)
+
+    assert any("disallowed public label" in error for error in errors)
+
+
 def test_compute_bound_doc_contains_required_public_evidence():
     text = (Path(__file__).resolve().parents[1] / "docs" / "compute_bound_evidence.md").read_text(
         encoding="utf-8"
@@ -38,6 +53,33 @@ def test_compute_bound_doc_contains_required_public_evidence():
 
     for required in REQUIRED_COMPUTE_BOUND_EVIDENCE:
         assert required in text
+
+
+def test_full_gpu_runner_example_help_works_without_torch():
+    runner = Path(__file__).resolve().parents[1] / "examples" / "full_gpu_runner.py"
+
+    result = subprocess.run(
+        [sys.executable, str(runner), "--help"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert "--config" in result.stdout
+    assert "--artifact-dir" in result.stdout
+    assert "--save-checkpoint" in result.stdout
+
+
+def test_validate_repo_ignores_generated_run_outputs(tmp_path):
+    write_minimal_repo(tmp_path)
+    run_dir = tmp_path / "artifacts" / "runs" / "example_gpu_runner"
+    run_dir.mkdir(parents=True)
+    private_path = "/" + "Users/example/private"
+    (run_dir / "summary.json").write_text(f'{{"artifact_dir": "{private_path}"}}\n', encoding="utf-8")
+
+    errors = validate(tmp_path)
+
+    assert not any("artifacts/runs/example_gpu_runner/summary.json" in error for error in errors)
 
 
 def test_validate_repo_rejects_missing_compute_bound_evidence_text(tmp_path):

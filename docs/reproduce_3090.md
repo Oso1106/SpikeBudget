@@ -3,8 +3,8 @@
 This runbook defines the public environment and evidence contract for
 3090-class SpikeBudget train-from-scratch runs. It avoids private host names,
 private scratch paths, and external weight assumptions. This repository
-contains configs and validation code; the full GPU training runner is an
-external release item.
+contains configs, validation code, and a complete GPU runner example for public
+scratch runs. The archival research runner remains an external release item.
 
 ## Hardware And Software Contract
 
@@ -35,6 +35,7 @@ external release item.
 | Install scaffold | `python -m pip install -e '.[dev]'` | Installs validators and test dependencies. |
 | Validate public artifacts | `python -m scripts.validate_repo` | Confirms docs, configs, ledger, and included artifacts are internally consistent. |
 | Run fast tests | `python -m pytest -q` | Exercises config parsing, evidence validation, and deterministic helper functions. |
+| Inspect runner example | `python examples/full_gpu_runner.py --help` | Shows the public scratch-runner arguments without requiring CUDA. |
 
 ## Smoke Run Contract
 
@@ -63,6 +64,7 @@ external release item.
 | Run type | Template | What to replace |
 | --- | --- | --- |
 | Smoke | `SPIKEBUDGET_PROFILE=smoke SPIKEBUDGET_ARTIFACT_DIR=$PWD/artifacts/runs/smoke CUDA_VISIBLE_DEVICES=0 $SPIKEBUDGET_RUNNER` | Replace `$SPIKEBUDGET_RUNNER` with the external GPU runner command for the release you are testing. |
+| Full GPU runner example | `python examples/full_gpu_runner.py --config configs/dense_low_lr_scratch_screen.yaml --device cuda --artifact-dir artifacts/runs/example_gpu_runner --max-steps 20 --save-checkpoint` | Runs a compact scratch byte-LM example using CUDA when available; generated checkpoint bytes stay outside git. |
 | Dense low-LR scratch smoke | `SPIKEBUDGET_PROFILE=dense_low_lr_scratch_smoke SPIKEBUDGET_SEED=1234 SPIKEBUDGET_ARTIFACT_DIR=$PWD/artifacts/runs/dense_low_lr_scratch_s1234 CUDA_VISIBLE_DEVICES=0 $SPIKEBUDGET_RUNNER` | Use the public config that matches d_model, layer count, LR, steps, and seed. |
 | Long dense horizon | `SPIKEBUDGET_PROFILE=long_3090 SPIKEBUDGET_SEED=1234 SPIKEBUDGET_ARTIFACT_DIR=$PWD/artifacts/runs/long_s1234 CUDA_VISIBLE_DEVICES=0 $SPIKEBUDGET_RUNNER` | Confirm disk, time budget, and checkpoint storage before launch. |
 
@@ -70,13 +72,11 @@ external release item.
 
 | Path | Contents | Commit policy |
 | --- | --- | --- |
-| `artifacts/runs/<run>/config.*` | Frozen run config | Include if small and free of private paths. |
-| `artifacts/runs/<run>/hardware.txt` | GPU, driver, Python, CUDA, PyTorch metadata | Include. |
-| `artifacts/runs/<run>/summary.md` | Evidence result and decision rule | Include. |
-| `artifacts/runs/<run>/results.tsv` | Compact result table | Include. |
-| `artifacts/runs/<run>/log_snippets.md` | Start, warning, eval, and final summary snippets | Include. |
-| `artifacts/runs/<run>/*.jsonl` | Full step logs | Include only when lightweight; otherwise publish a summary and checksum. |
-| `checkpoints/**` | Model checkpoints | Do not commit. |
+| `artifacts/runs/<run>/config.yaml` | Frozen run config copied by the example runner | Generated run output; ignored by default. Promote a curated copy only if small and free of private paths. |
+| `artifacts/runs/<run>/hardware.json` | GPU, driver, Python, CUDA, PyTorch metadata | Generated run output; ignored by default. |
+| `artifacts/runs/<run>/summary.json` | Evidence result, best metric, and generated-checkpoint pointer | Generated run output; ignored by default. |
+| `artifacts/runs/<run>/train.jsonl` | Step logs with metric, LR, device, memory, and elapsed time | Generated run output; ignored by default; publish a compact summary and checksum for long logs. |
+| `artifacts/runs/<run>/checkpoints/**` | Model checkpoints generated from scratch | Do not commit. |
 | `data/**/*.parquet` | Dataset shards | Do not commit. |
 
 ## Technology-Lane Notes

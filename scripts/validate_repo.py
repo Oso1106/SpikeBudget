@@ -31,6 +31,7 @@ PUBLIC_TEXT_GLOBS = (
     "configs/**/*.yaml",
     ".github/**/*.yaml",
     ".github/**/*.yml",
+    "examples/**/*.py",
     "scripts/**/*.py",
     "spikebudget/**/*.py",
     "tests/**/*.py",
@@ -40,6 +41,9 @@ PUBLIC_TEXT_GLOBS = (
     "artifacts/**/*.txt",
     "artifacts/**/*.json",
     "artifacts/**/*.log",
+)
+PUBLIC_TEXT_EXCLUDED_PREFIXES = (
+    "artifacts/runs/",
 )
 REQUIRED_COMPUTE_BOUND_EVIDENCE = (
     "0.098x",
@@ -126,7 +130,12 @@ def iter_public_text_files(root: Path) -> list[Path]:
             path = root / pattern
             if path.is_file():
                 files.add(path)
-    return sorted(files)
+    return sorted(path for path in files if not is_excluded_public_text_file(root, path))
+
+
+def is_excluded_public_text_file(root: Path, path: Path) -> bool:
+    relative_path = path.relative_to(root).as_posix()
+    return any(relative_path.startswith(prefix) for prefix in PUBLIC_TEXT_EXCLUDED_PREFIXES)
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -9,6 +9,7 @@ build/
 checkpoints/
 data/raw/
 data/cache/
+artifacts/runs/
 *.pt
 *.pth
 *.ckpt
@@ -16,4 +17,3 @@ data/cache/
 *.parquet
 *.arrow
 *.jsonl
-!artifacts/**/*.jsonl
