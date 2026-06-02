@@ -3,8 +3,8 @@
 SpikeBudget is the public documentation, config, and evidence ledger for a
 bounded SNN train-from-scratch effort on GPUs like RTX 3090-class. This slice is
 a reproducibility scaffold: it ships the technology milestone ledger, public run
-contracts, lightweight scratch evidence, validation code, and a full GPU runner
-example. Generated checkpoint bytes remain outside git.
+contracts, lightweight scratch evidence, validation code, a full GPU runner
+example, and checkpoint bytes from scratch training.
 
 ## Compute-Bound Summary
 
