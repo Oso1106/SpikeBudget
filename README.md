@@ -6,6 +6,28 @@ reproducibility scaffold: it ships the technology milestone ledger, public run
 contracts, lightweight scratch evidence, and validation code; the full GPU
 training runner and generated checkpoints are not included in this repository.
 
+## Compute-Bound Summary
+
+In the studied path, compute-side behavior was achieved by changing the
+gradient path from a memory-heavy tiled scalar reduction into a CUTLASS
+GEMM-shaped CUDA workload.
+That makes the GPU do dense matrix-style work instead of mostly storing and
+rereading temporal state. The matched optimized path also avoids much of the
+temporal-state materialization, which is why the evidence shows both lower
+memory traffic and faster runtime.
+
+For the full evidence table and reading boundary, see
+[docs/compute_bound_evidence.md](docs/compute_bound_evidence.md).
+
+| Insight | Implication |
+| --- | --- |
+| In the studied path, SNN speed is not determined by spiking alone. | The main design question is how the temporal gradient and state path map onto GPU kernels. |
+| Kernel shape matters more than the high-level math label. | A scalar-reduction implementation can be slow, while a GEMM-shaped implementation can expose enough dense compute to use the GPU well. |
+| Avoiding temporal-state materialization is central. | Memory traffic, not arithmetic, was the bottleneck in the materialized path; reducing it makes larger scratch runs more feasible. |
+| Counter evidence matches the mechanism. | High SM use and very low DRAM pressure support the compute-side interpretation for the optimized path. |
+| The result is bounded, not universal. | This supports the studied CUDA path and task benchmark; it does not prove all SNN workloads are compute-bound or faster by default. |
+| Future work should optimize representation before scaling. | More model size or more saliency machinery is less useful than first ensuring the training path is GPU-friendly and memory-light. |
+
 ## Bounded Claim
 
 | Claim area | Public claim | Current evidence | Boundary |
