@@ -6,6 +6,15 @@ temporal state traffic and toward compute-side GPU execution. The claim is
 bounded to the measured kernels and task-level benchmark; it is not a claim
 about every SNN workload or every framework.
 
+## Short Explanation
+
+Compute-side behavior was achieved by changing the gradient path from a
+memory-heavy tiled scalar reduction into a CUTLASS GEMM-shaped CUDA workload.
+That makes the GPU do dense matrix-style work instead of mostly storing and
+rereading temporal state. The matched optimized path also avoids much of the
+temporal-state materialization, which is why the evidence shows both lower
+memory traffic and faster runtime.
+
 ## What Changed
 
 | Change | What it does | Why it matters for compute-bound behavior |
@@ -25,6 +34,17 @@ about every SNN workload or every framework.
 | Task-level NVIDIA L4 benchmark | Matched optimized path was 128.75x memory-cheaper and 6.78x faster on the NVIDIA L4 task. | The optimized path reduces memory traffic and improves runtime on the measured task. NVIDIA L4 is a datacenter GPU model, not NVIDIA L40. |
 | CUDA counter repeatability | Optimized counters reported 70.7% SM / 0.08% DRAM while the materialized reference reported 22.7% SM / 51.3% DRAM. | The optimized path spends far more of the measured profile in compute-side work and far less in DRAM traffic. |
 | Real CUDA timing correction | Real CUDA kernels and cudaEvent timing replaced the earlier synthetic timing history. | The correction keeps the public evidence honest and bound to measured kernels. |
+
+## Insights And Implications
+
+| Insight | Implication |
+| --- | --- |
+| In the studied path, SNN speed is not determined by spiking alone. | The main design question is how the temporal gradient and state path map onto GPU kernels. |
+| Kernel shape matters more than the high-level math label. | A scalar-reduction implementation can be slow, while a GEMM-shaped implementation can expose enough dense compute to use the GPU well. |
+| Avoiding temporal-state materialization is central. | Memory traffic, not arithmetic, was the bottleneck in the materialized path; reducing it makes larger scratch runs more feasible. |
+| Counter evidence matches the mechanism. | High SM use and very low DRAM pressure support the compute-side interpretation for the optimized path. |
+| The result is bounded, not universal. | This supports the studied CUDA path and task benchmark; it does not prove all SNN workloads are compute-bound or faster by default. |
+| Future work should optimize representation before scaling. | More model size or more saliency machinery is less useful than first ensuring the training path is GPU-friendly and memory-light. |
 
 ## Reading Boundary
 
